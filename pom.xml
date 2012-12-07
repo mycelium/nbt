@@ -1,13 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
-	<groupId>com.mycelium</groupId>
+	<groupId>com.mycelium.nbt</groupId>
 	<artifactId>nbt</artifactId>
-	<packaging>pom</packaging>
+	<packaging>war</packaging>
 	<version>1.0</version>
-
-	<name>NBT Project</name>
+	<name>NBT Webapp</name>
+	<url>http://maven.apache.org</url>
 
 	<properties>
 		<jetty.version>6.1.26</jetty.version>
@@ -16,6 +15,43 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -36,14 +72,12 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
-			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.4</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<!-- Apache Commons Upload -->
@@ -52,7 +86,6 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.2.2</version>
 		</dependency>
-
 		<!-- Apache Commons Upload -->
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -83,6 +116,10 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 			</plugin>
 			<plugin>
@@ -92,12 +129,12 @@
 				<configuration>
 					<connectors>
 						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-							<port>8081</port>
+							<port>8080</port>
 						</connector>
 					</connectors>
-					<webDefaultXml>src/main/resources/webdefault.xml</webDefaultXml>
 				</configuration>
 			</plugin>
 		</plugins>
+
 	</build>
 </project>
