@@ -10,12 +10,6 @@
             WEB-INF/nbt-servlet.xml
         </param-value>
     </context-param>
-    
-	<context-param>
-		<param-name>webAppRootKey</param-name>
-		<param-value>nbt</param-value>
-	</context-param>
-	
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -33,7 +27,7 @@
 	
     <servlet-mapping>
         <servlet-name>nbt</servlet-name>
-        <url-pattern>/nbt/*</url-pattern>
+        <url-pattern>/site/*</url-pattern>
     </servlet-mapping>
 
    

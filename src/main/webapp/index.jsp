@@ -9,7 +9,7 @@
     <link type="text/css" rel="stylesheet" media="all" href="<c:url value="/css/style.css"/>"/>    
     <title>NBT</title>
 </head>
-<c:url value="/nbt" var="api_url"/>
+<c:url value="/site" var="api_url"/>
 <body>
 <h2>Hello World!</h2>
 <a href="${api_url}/hello">Hello page</a>
