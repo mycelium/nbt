@@ -11,13 +11,17 @@
     <script type="text/javascript" src="<c:url value="/js/jquery.js"/>"></script>
     <script type="text/javascript" src="<c:url value="/js/jquery-ui.js"/>"></script>
 	<link type="text/css" rel="stylesheet" media="all" href="<c:url value="/css/jquery-ui.css"/>" />
-    <link type="text/css" rel="stylesheet" media="all" href="<c:url value="/css/style.css"/>"/>    
+    <link type="text/css" rel="stylesheet" media="all" href="<c:url value="/css/style.css"/>"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
     <title>Hello page</title>
 </head>
 <body>
 <h2>Hello service</h2>
 	<input id="inputName" type="text"  placeholder="Type your name">
 	<input id="buttonSubmitName" type="button" value="submit" onclick="showHelloDialog()">
+	<input id="buttonSubmitTitle" type="button" value = "change title" onclick="showSecondDialog" >
 
 <div id="dialogHello" style="display:none" title="Hello!" >
 	
@@ -47,6 +51,10 @@
                 $(this).dialog( "close" );
             }
         }});
+    }
+
+    function showSecondDialog() {
+          alert('go to hell');
     }
 
 </script>
