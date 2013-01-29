@@ -13,19 +13,19 @@
 
     <title>NBT</title>
 </head>
-<c:url value="/web" var="api_url"/>
+<c:url value="/site" var="api_url"/>
 
 <body>
     <div class="container content">
-    <jsp:include page="asdfasdf.jsp" />
         <div class="container-fluid">
             <div class="row-fluid">
                 <div class="span2">
                     <ul class="nav nav-list">
                         <li class="nav-header">List header</li>
-                        <li class="active"><a href="#">Home</a></li>
+                        <li class="active"><a href="/nbt">Home</a></li>
                         <li><a href="${api_url}/hello.jsp">Hello page</a></li>
                         <li><a href="${api_url}/template.jsp">Show template</a></li>
+                        <li><a href="${api_url}/new_issue.jsp">New Issue</a> </li>
                         <li class="nav-header">Another list header</li>
                         <li><a href="#">Profile</a></li>
                         <li><a href="#">Settings</a></li>
