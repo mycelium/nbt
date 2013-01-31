@@ -27,7 +27,7 @@
 	
     <servlet-mapping>
         <servlet-name>nbt</servlet-name>
-        <url-pattern>/web/*</url-pattern>
+        <url-pattern>/site/*</url-pattern>
     </servlet-mapping>
 
    
