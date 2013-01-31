@@ -1,0 +1,34 @@
+//mage by Misha and Yura
+use nbt
+db.createCollection("roles")
+db.createCollection("users")
+db.createCollection("cr")
+db.createCollection("tasks")
+db.createCollection("types")
+db.createCollection("statuses")
+db.createCollection("priorities")
+
+db.roles.insert({_id:1,caption:"admin"})
+
+db.users.insert({_id:1,role:"admin",name:"Gimmie",email:"lala@lala.ru"})
+
+db.cr.insert({author:new DBRef('users',1),bookers:[new DBRef('users',2),new DBRef('users',3)],caption:"someting",id_task:new DBRef('tasks',1),parentID:ObjectId("Id of parent CR")})
+
+db.tasks.insert({caption:"revision",owner:new DBRef('users',3),lookers:[new DBRef('users',4),new DBRef('users',5)],subtasks:["",""],typeId:1,statusId:1,priorityId:1})
+
+db.types.insert({_id:1,caption:""})
+
+db.statuses.insert({_id:1,caption:""})
+
+db.priorities.insert(_id:1,caption""})
+
+db.users.update({_id:1},{$set:{email:"param@pampam"}})	
+db.tasks.update({typeId:2},{$set:{priorityId:3}},false,true)	
+db.users.update({_id:2},{$unset:{email:""}})		
+db.users.update({_id:2},{$rename:{"email":"e-mail"}})	
+
+db.users.remove({_id:1}) 				
+
+db.users.find().pretty()
+db.users.find({_id:db.cr.findOne({_id:2}).author})
+db.tasks.find({typeId:db.priorities.find({caption:"hight"})._id})
