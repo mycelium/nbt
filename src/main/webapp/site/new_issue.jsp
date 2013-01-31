@@ -22,7 +22,9 @@
         </head>
         <body>
         <div class="container content">
+        <div id="dialogHello" style="display:none" title="Hello!" >
 
+        </div>
         <!-- Left Menu container, do not forget about active list member -->
             <div class="container-fluid">
                 <div class="row-fluid">
@@ -56,6 +58,30 @@
                         <input id="subjectOfIssue" type="text" placeholder="Subject">
                         <h5>Description of Issue</h5>
                         <textarea rows="7" input id="descriptionOfIssue" placeholder="Description"></textarea>
+                        <input id="sumbitButton" type="button" class="btn btn-info btn-large" value="submit" OnClick="showHelloDialog">
+
+
+
+                            <p><form name="Exercise_2"><b>Exercise 2:</b><br><br>
+                            <script language="Javascript"><!--
+                            ourText = "Welcome to our website, ";
+                            // --></script>
+                            Type your Name: <input name="visitor_name"><br>
+                            <input name="showMeArea" readonly="true" size="30">
+                            <input type="button" class="btn btn-info" value="Show Message!"
+                            OnClick="showMeArea.value=ourText + visitor_name.value + '!';">
+                            </form></p>
+
+
+
+
+                        <script type="text/javascript">
+                            $(function(){
+                                $('sumbitButton').onclick({
+                                alert('go to hell');
+                                });
+                            });
+                        </script>
 
 
                     </div>
@@ -70,7 +96,7 @@
                         </select>
                         <h5>Date of finish</h5>
                         <input type="text" class="span4"  id="dp1">
-                        <script>
+                        <script type="text/javascript">
                             $(function(){
                             window.prettyPrint && prettyPrint();
                             $('#dp1').datepicker({
@@ -80,9 +106,12 @@
                             });
 
                         </script>
+
                     </div>
+
                 </div>
             </div>
+
         </div>
 
         </body>

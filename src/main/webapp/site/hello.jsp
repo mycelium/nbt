@@ -19,7 +19,7 @@
     <title>NBT Greets U</title>
 </head>
 <body>
-    <body>
+
     <div class="container content">
         <div class="container-fluid">
             <div class="row-fluid">
@@ -41,46 +41,43 @@
                 <div class="span8">
                     <div class="btn-group">
                         <h2>Hello service</h2>
-                        <input id="inputName" type="text"  placeholder="Type your name">
-                        <input id="sumbitButton" type="button" class="btn btn-success" value="submit" onclick="showHelloDialog()">
-                            <div id="dialogHello" style="display:none" title="Hello!" >
-
-                            </div>
+                        <tb>
+                            <input id="inputName" type="text"  placeholder="Type your name">
+                            <input id="sumbitButton" type="button" class="btn btn-success" value="submit" onclick="showHelloDialog()">
+                        </tb>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </body>
+
 
 
 <script type="text/javascript">
 
     var xmlhttp = new XMLHttpRequest();
- 
+
 
     function showHelloDialog() {
-    	var name=$("#inputName").val();
-    	if(!name){
-    		alert('Empty name!');
-    		return;
-    	}
-    	$.getJSON(window.location.href+"/greeting/"+name,{},
-        		function (data){
-        	    	if(data.greeting){
-        	    		$("#dialogHello").append("<p>"+data.greeting+"</p>");
-        	    	}else{
-        	    		alert('No data returned!');
-        	    	}
-    		});
-    	$("#dialogHello").dialog({modal:true, width:300, height:150,buttons: {
+        var name=$("#inputName").val();
+        if(!name){
+            alert('Empty name!');
+            return;
+        }
+        $.getJSON(window.location.href+"/greeting/"+name,{},
+        function (data){
+        if(data.greeting){
+            $("#dialogHello").append("<p>"+data.greeting+"</p>");
+        }else{
+            alert('No data returned!');
+        }
+        });
+        $("#dialogHello").dialog({modal:true, width:300, height:150,buttons: {
             "Ok": function() {
-                $(this).dialog( "close" );
+            $(this).dialog( "close" );
             }
         }});
     }
-
-
 
 </script>
 </body>
