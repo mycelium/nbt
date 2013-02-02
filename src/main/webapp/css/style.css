@@ -27,3 +27,30 @@ select[size] {height:auto;}
 h2 {color:#891a50; font:bold 15px arial;}
 button {font-size:10px;}
 .content {margin-top: 50px;}
+
+	/*   Main Content
+		---------------------------------------------- */	
+		.bigTableContainer {overflow:auto; height:100%;}		
+		.bigLink {color:#891a50; font-size:12px;}		
+			
+			
+			/*   Top Elements
+			---------------------------------------------- */
+			.topElements {height:28px;}			
+			.topElements h2 {padding-top:8px; float:left;}
+			.topElements h2 a {color:#891A50;}
+			.topElements .bigLink {margin-top:10px;}
+			.rightControls {float:right; margin-top:9px;}
+			.rightControls .bigLink {margin-left:5px;}
+		
+		
+			/*   Main Table
+			---------------------------------------------- */
+			.mainTable {width:100%; border-collapse:collapse; margin-bottom:4px;}
+			.mainTable thead {}
+			.mainTable tr {background-color:#fafaf9;}
+			.mainTable tr:hover td {background-color:#f3f6e8;}
+			.mainTable th {padding:4px 15px; border-top:2px solid #d6d4cd; border-bottom:2px solid #d6d4cd; background-color:#e3e6cf !important; font:bold 12px arial; color:#3d3d3d;}
+			.mainTable td {padding:1px 15px; border-top:1px solid #fff; border-bottom:1px solid #fff; font:normal 11px arial; color:#656565;}			
+			.mainTable a {color:#891a50;}			
+			.mainTable.shortTable {width:498px;}

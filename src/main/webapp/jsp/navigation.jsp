@@ -11,6 +11,7 @@
 		<li class="nav-header">Another list header</li>
 		<li><a href="${api_url}/profile">Profile</a></li>
 		<li><a href="${api_url}/profile/settings">Settings</a></li>
+		<li><a href="${api_url}/user">Users</a></li>
 		<li class="divider"></li>
 		<li><a href="#">Help</a></li>
 	</ul>
