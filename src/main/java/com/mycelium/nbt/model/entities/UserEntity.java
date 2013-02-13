@@ -6,18 +6,20 @@ public class UserEntity implements Entity {
 	private String _id;
 	private String _login;
 	private String _email;
+	private String _role;
 	private String _firstName;
 	private String _lastName;
 	private String _password;
 	
 	public UserEntity(){
 	}
-	public UserEntity(String login, String email, String firstName, String lastName, String password){
-		_login=login;
-		_email=email;
-		_firstName=firstName;
-		_lastName=lastName;
-		_password=Util.getMD5(password);
+	public UserEntity(String login, String role, String email, String firstName, String lastName, String password){
+		_login = login;
+		_role = role;
+		_email = email;
+		_firstName = firstName;
+		_lastName = lastName;
+		_password = Util.getMD5(password);
 	}
 
 	@Override
@@ -38,6 +40,14 @@ public class UserEntity implements Entity {
 		_login = login;
 	}
 
+	public String get_role() {
+		return _role;
+	}
+	
+	public void set_role(String _role) {
+		this._role = _role;
+	}
+	
 	public String getEmail() {
 		return _email;
 	}

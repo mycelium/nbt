@@ -22,13 +22,13 @@ public class UserDao {
 			_mongoTemplate.dropCollection(COLLECTION_USERS);
 		}
 		_mongoTemplate.createCollection(COLLECTION_USERS);
-		UserEntity user = new UserEntity("lukan", "lukan@mycelium.com",
+		UserEntity user = new UserEntity("lukan", "admin", "lukan@mycelium.com",
 				"Anton", "Lukashin", "pass01");
 		addUser(user);
-		user = new UserEntity("gambit", "pkozlov@mycelium.com",
+		user = new UserEntity("gambit", "admin", "pkozlov@mycelium.com",
 				"Pavel", "Kozlov", "pass02");
 		addUser(user);
-		user = new UserEntity("msalamatov", "msalamatov@mycelium.com",
+		user = new UserEntity("msalamatov", "admin", "msalamatov@mycelium.com",
 				"Michail", "Salamatov", "pass03");
 		addUser(user);
 	}
