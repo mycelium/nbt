@@ -9,7 +9,7 @@ public class IssueEntity implements Entity {
 	private String _reporter;
 	private ArrayList<String> _assignees;
 	private ArrayList<String> _watchers;
-	private ArrayList<Integer> _subtasks;
+	private ArrayList<String> _subtasks;
 	private ArrayList<String> _components;
 	private String _typeIssue;
 	private String _statusIssue;
@@ -66,11 +66,11 @@ public class IssueEntity implements Entity {
 		this._watchers = _watchers;
 	}
 	
-	public ArrayList<Integer> get_subtasks() {
+	public ArrayList<String> get_subtasks() {
 		return _subtasks;
 	}
 	
-	public void set_subtasks(ArrayList<Integer> _subtasks) {
+	public void set_subtasks(ArrayList<String> _subtasks) {
 		this._subtasks = _subtasks;
 	}
 	

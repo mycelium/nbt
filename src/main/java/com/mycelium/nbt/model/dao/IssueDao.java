@@ -7,12 +7,14 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
+import com.mycelium.nbt.model.entities.IssueEntity;
+
 public class IssueDao {
 	private static final String COLLECTION_ISSUES = "Issues";
 	@Autowired
 	private MongoOperations _mongoTemplate;
 
-	public void addIssue(IssueDao issue) {
+	public void addIssue(IssueEntity issue) {
 		_mongoTemplate.save(issue, COLLECTION_ISSUES);
 	}
 
@@ -25,14 +27,16 @@ public class IssueDao {
 		return _mongoTemplate.findAll(IssueDao.class, COLLECTION_ISSUES);
 	}
 	
-	public List<IssueDao> findByPriority(String priority) {
-		return _mongoTemplate.find(new Query(Criteria.where("priorityIssue").is(priority)),
+	public List<IssueDao> findByPriority(String priorityId) {
+		return _mongoTemplate.find(new Query(Criteria.where("priorityIssue").is(priorityId)),
 				IssueDao.class, COLLECTION_ISSUES);
+		//TODO change query for searching by priority caption
 	}
 	
-	public List<IssueDao> findByReporter(String reporter) {
-		return _mongoTemplate.find(new Query(Criteria.where("reporter").is(reporter)),
+	public List<IssueDao> findByReporter(String reporterId) {
+		return _mongoTemplate.find(new Query(Criteria.where("reporter").is(reporterId)),
 				IssueDao.class, COLLECTION_ISSUES);
+		//TODO change query for searching by reporter email or login
 	}
 	
 	public List<IssueDao> findByAssignee(String assignee) {
