@@ -31,10 +31,9 @@
 				<div class="span8">
 					<div class="btn-group">
 						<h2>Hello service</h2>
-						<tb> <input id="inputName" type="text"
-							placeholder="Type your name"> <input id="sumbitButton"
-							type="button" class="btn btn-success" value="submit"
-							onclick="showHelloDialog()"> </tb>
+						<tb> <input id="inputName" type="text" placeholder="Type your name"> 
+							<input id="sumbitButton" type="button" class="btn btn-success" value="submit"onclick="showHelloDialog()"> 
+							</tb>
 					</div>
 				</div>
 			</div>
