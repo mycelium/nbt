@@ -14,14 +14,14 @@ import com.mycelium.nbt.model.entities.UserEntity;
 public class UserDao {
 	private static final String COLLECTION_USERS = "Users";
 	@Autowired
-	private MongoOperations _mongoTempalte;
+	private MongoOperations _mongoTemplate;
 
 	@PostConstruct
 	void init() {
-		if (_mongoTempalte.collectionExists(COLLECTION_USERS)) {
-			_mongoTempalte.dropCollection(COLLECTION_USERS);
+		if (_mongoTemplate.collectionExists(COLLECTION_USERS)) {
+			_mongoTemplate.dropCollection(COLLECTION_USERS);
 		}
-		_mongoTempalte.createCollection(COLLECTION_USERS);
+		_mongoTemplate.createCollection(COLLECTION_USERS);
 		UserEntity user = new UserEntity("lukan", "lukan@mycelium.com",
 				"Anton", "Lukashin", "pass01");
 		addUser(user);
@@ -34,16 +34,16 @@ public class UserDao {
 	}
 
 	public void addUser(UserEntity user) {
-		_mongoTempalte.save(user, COLLECTION_USERS);
+		_mongoTemplate.save(user, COLLECTION_USERS);
 	}
 
 	public UserEntity findOne(String id) {
-		return _mongoTempalte.findOne(new Query(Criteria.where("id").is(id)),
+		return _mongoTemplate.findOne(new Query(Criteria.where("id").is(id)),
 				UserEntity.class, COLLECTION_USERS);
 	}
 
 	public List<UserEntity> findAll() {
-		return _mongoTempalte.findAll(UserEntity.class, COLLECTION_USERS);
+		return _mongoTemplate.findAll(UserEntity.class, COLLECTION_USERS);
 	}
 
 }

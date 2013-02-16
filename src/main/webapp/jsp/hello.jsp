@@ -12,7 +12,6 @@
 <script type="text/javascript" src="<c:url value="/js/jquery-ui.js"/>"></script>
 <script type="text/javascript"
 	src="<c:url value="/js/bootstrap.min.js"/>"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <link type="text/css" rel="stylesheet" media="all"
 	href="<c:url value="/css/jquery-ui.css"/>" />
 <link type="text/css" rel="stylesheet" media="all"
@@ -40,6 +39,9 @@
 		</div>
 	</div>
 	<c:import url="/jsp/footer.jsp" />
+	
+	<div id="dialogHello" style="display:none">
+	</div>
 </body>
 <script type="text/javascript">
 	var xmlhttp = new XMLHttpRequest();
