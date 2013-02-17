@@ -33,11 +33,9 @@
 				<div class="span10">
 					<div class="topElements">
 						<h2>Users</h2>
-						<div class="rightControls">
-							<a href="javascript:createNew()" class="bigLink">Add user</a>
-						</div>
+						
 					</div>
-					<table class="mainTable">
+					<table class="table table-hover table-condensed">
 						<thead>
 							<th>Login</th>
 							<th>Last Name</th>
@@ -54,6 +52,10 @@
 						</c:forEach>
 					</table>
 				</div>
+			  <div class="rightControls">
+			  <a href="javascript:createNew()" class="btn btn-info input-xlarge">Add user</a>
+			  </div>
+						
 			</div>
 		</div>
 	</div>
@@ -61,7 +63,20 @@
 	
 	<div id="addUserDialog" style="display:none;" title="New user">
 	<form id="addUserForm" action="" method="POST">
-		<p>add inputs for form</p>
+		<table class="table">
+		<thead>
+		<th>Login</th>
+		<th>Last Name</th>
+		<th>First Name</th>
+		<th>E-mail</th>
+		</thead>
+			<tr>
+			<td><input class="input-small" placeholder="Login"></td>
+			<td><input class="input-small" placeholder="Last Name"></td>
+			<td><input class="input-small" placeholder="First Name"></td>
+			<td><input class="input-small" placeholder="E-mail"></td>
+			</tr>
+			</table>
 	</form>
 </div>
 <script type="text/javascript">
