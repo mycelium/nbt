@@ -1,6 +1,6 @@
 package com.mycelium.nbt.model.entities;
 
-public class TypeEntity implements Entity {
+public class TypeEntity extends Entity {
 	private String _id;
 	private String _caption;
 	

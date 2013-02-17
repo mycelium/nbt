@@ -1,6 +1,6 @@
 package com.mycelium.nbt.model.entities;
 
-public class PriorityEntity implements Entity {
+public class PriorityEntity extends Entity {
 	private String _id;
 	private String _caption;
 	

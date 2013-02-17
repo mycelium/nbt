@@ -84,17 +84,12 @@
 	<c:import url="/jsp/footer.jsp" />
 </body>
 <script type="text/javascript">
-	ourText = "Welcome to our website, ";
+	var ourText = "Welcome to our website, ";
 	$(function(){
     	window.prettyPrint && prettyPrint();
         $('#dp1').datepicker({
         	format: 'dd-mm-yyyy',
         	weekStart:1
-        });
-    });
-	$(function(){
-        $('sumbitButton').onclick({
-        alert('go to hell');
         });
     });
 </script>

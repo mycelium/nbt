@@ -2,7 +2,7 @@ package com.mycelium.nbt.model.entities;
 
 import java.util.ArrayList;
 
-public class CrEntity implements Entity {
+public class CrEntity extends Entity {
 	private String _id;
 	private String _caption;
 	private String _author;

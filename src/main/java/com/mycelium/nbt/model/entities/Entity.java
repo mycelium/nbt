@@ -1,6 +1,12 @@
 package com.mycelium.nbt.model.entities;
 
-public interface Entity {
-	public String getId();
-	public void setId(String id);
+import com.mycelium.nbt.utils.Util;
+
+public abstract class Entity {
+	public abstract String getId();
+	public abstract void setId(String id);
+	@Override
+	public String toString(){
+		return Util.toJSON(this);
+	}
 }

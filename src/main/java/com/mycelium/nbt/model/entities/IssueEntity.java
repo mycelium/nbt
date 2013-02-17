@@ -3,7 +3,7 @@ package com.mycelium.nbt.model.entities;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class IssueEntity implements Entity {
+public class IssueEntity extends Entity {
 	private String _id;
 	private String _caption;
 	private String _reporter;

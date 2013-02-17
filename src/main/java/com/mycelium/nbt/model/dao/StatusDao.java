@@ -2,11 +2,12 @@ package com.mycelium.nbt.model.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.stereotype.Repository;
 
 import com.mycelium.nbt.model.entities.StatusEntity;
 
-public class StatusDao {
-	private static final String COLLECTION_STATUSES = "Statuses";
+@Repository
+public class StatusDao implements CollectionNames {
 	@Autowired
 	private MongoOperations _mongoTemplate;
 

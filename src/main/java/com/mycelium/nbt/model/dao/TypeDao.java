@@ -2,11 +2,12 @@ package com.mycelium.nbt.model.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.stereotype.Repository;
 
 import com.mycelium.nbt.model.entities.TypeEntity;
 
-public class TypeDao {
-	private static final String COLLECTION_TYPES = "Types";
+@Repository
+public class TypeDao implements CollectionNames {
 	@Autowired
 	private MongoOperations _mongoTemplate;
 

@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-<c:url value="/site" var="api_url" />
+<c:url value="/site/user" var="api_url" />
 
 <head>
 <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -41,13 +41,15 @@
 							<th>Last Name</th>
 							<th>First Name</th>
 							<th>E-mail</th>
+							<th>Operation</th>
 						</thead>
 						<c:forEach items="${users}" var="user">
-							<tr>
+							<tr id="user_${user.id}">
 								<td>${user.login}</td>
 								<td>${user.lastName}</td>
 								<td>${user.firstName}</td>
 								<td>${user.email}</td>
+								<td><input class="btn btn-info input-xlarge" type="button" value="Delete" onclick="deleteUser('${user.id}', '${user.login}')"> </td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -62,7 +64,7 @@
 	<c:import url="/jsp/footer.jsp" />
 	
 	<div id="addUserDialog" style="display:none;" title="New user">
-	<form id="addUserForm" action="" method="POST">
+	<form id="addUserForm" action="${api_url}/new" method="POST">
 		<table class="table">
 		<thead>
 		<th>Login</th>
@@ -71,19 +73,21 @@
 		<th>E-mail</th>
 		</thead>
 			<tr>
-			<td><input class="input-small" placeholder="Login"></td>
-			<td><input class="input-small" placeholder="Last Name"></td>
-			<td><input class="input-small" placeholder="First Name"></td>
-			<td><input class="input-small" placeholder="E-mail"></td>
+			<td><input class="input-small" placeholder="Login" name="login"></td>
+			<td><input class="input-small" placeholder="Last Name" name="lastName"></td>
+			<td><input class="input-small" placeholder="First Name" name="firstName"></td>
+			<td><input class="input-small" placeholder="E-mail" name="email"></td>
+			<td><input type="password" class="input-small" placeholder="Password" name="password"></td>
 			</tr>
 			</table>
 	</form>
 </div>
 <script type="text/javascript">
+var xmlhttp = new XMLHttpRequest();
 	function createNew() {
 		$('#addUserDialog').dialog({
 			title : "New User",
-			width : 530,
+			width : 600	,
 			resizable : false,
 			modal : true,
 			buttons: {
@@ -94,6 +98,13 @@
 	                $(this).dialog('close');
 	            }
 	        }});
+	}
+	function deleteUser(id, login){
+		if(confirm('Are you shure to delete user with login "'+login+'" ?')){
+			xmlhttp.open('DELETE', window.location.href + '/' + id, true);
+            xmlhttp.send();
+            $("#user_"+id).remove();
+		}
 	}
 </script>
 </body>

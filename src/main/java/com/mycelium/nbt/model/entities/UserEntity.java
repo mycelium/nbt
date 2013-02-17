@@ -2,7 +2,7 @@ package com.mycelium.nbt.model.entities;
 
 import com.mycelium.nbt.utils.Util;
 
-public class UserEntity implements Entity {
+public class UserEntity extends Entity {
 	private String _id;
 	private String _login;
 	private String _email;
@@ -10,6 +10,7 @@ public class UserEntity implements Entity {
 	private String _firstName;
 	private String _lastName;
 	private String _password;
+	
 	
 	public UserEntity(){
 	}
@@ -40,12 +41,12 @@ public class UserEntity implements Entity {
 		_login = login;
 	}
 
-	public String get_role() {
+	public String getRole() {
 		return _role;
 	}
 	
-	public void set_role(String _role) {
-		this._role = _role;
+	public void setRole(String role) {
+		this._role = role;
 	}
 	
 	public String getEmail() {
@@ -79,5 +80,5 @@ public class UserEntity implements Entity {
 	public void setPassword(String password) {
 		_password = password;
 	}
-
+	
 }

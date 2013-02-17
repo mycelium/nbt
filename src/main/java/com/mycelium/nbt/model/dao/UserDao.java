@@ -8,11 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Repository;
 
 import com.mycelium.nbt.model.entities.UserEntity;
 
-public class UserDao {
-	private static final String COLLECTION_USERS = "Users";
+@Repository
+public class UserDao implements CollectionNames {
 	@Autowired
 	private MongoOperations _mongoTemplate;
 
@@ -22,8 +23,8 @@ public class UserDao {
 			_mongoTemplate.dropCollection(COLLECTION_USERS);
 		}
 		_mongoTemplate.createCollection(COLLECTION_USERS);
-		UserEntity user = new UserEntity("lukan", "admin", "lukan@mycelium.com",
-				"Anton", "Lukashin", "pass01");
+		UserEntity user = new UserEntity("lukan", "admin",
+				"lukan@mycelium.com", "Anton", "Lukashin", "pass01");
 		addUser(user);
 		user = new UserEntity("gambit", "admin", "pkozlov@mycelium.com",
 				"Pavel", "Kozlov", "pass02");
@@ -38,12 +39,24 @@ public class UserDao {
 	}
 
 	public UserEntity findOne(String id) {
-		return _mongoTemplate.findOne(new Query(Criteria.where("id").is(id)),
+		return _mongoTemplate.findOne(new Query(Criteria.where("_id").is(id)),
+				UserEntity.class, COLLECTION_USERS);
+	}
+
+	public UserEntity findByLogin(String login) {
+		return _mongoTemplate.findOne(
+				new Query(Criteria.where("_login").is(login)),
 				UserEntity.class, COLLECTION_USERS);
 	}
 
 	public List<UserEntity> findAll() {
 		return _mongoTemplate.findAll(UserEntity.class, COLLECTION_USERS);
+	}
+
+	public UserEntity delete(String id) {
+		return _mongoTemplate.findAndRemove(
+				new Query(Criteria.where("_id").is(id)), UserEntity.class,
+				COLLECTION_USERS);
 	}
 
 }

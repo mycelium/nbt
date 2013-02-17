@@ -1,6 +1,6 @@
 package com.mycelium.nbt.model.entities;
 
-public class RoleEntity implements Entity {
+public class RoleEntity extends Entity {
 	private String _id;
 	private String _caption;
 	

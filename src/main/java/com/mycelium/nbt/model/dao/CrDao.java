@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Repository;
 
 import com.mycelium.nbt.model.entities.CrEntity;
-
-public class CrDao {
-	private static final String COLLECTION_CRS = "CRs";
+@Repository
+public class CrDao  implements CollectionNames{
 	@Autowired
 	private MongoOperations _mongoTemplate;
 
