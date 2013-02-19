@@ -38,15 +38,19 @@
 				<div class="span8">
 					<h3>Information</h3>
 				</div>
+				
 				<div class="span5">
+					<h5>Login</h5>
+					<input id="Login" type="text" placeholder="Login" value="${userProfile.login}">
 					<h5>Firstname</h5>
-					<input id="Firstname" type="text" placeholder="Firstname">
+					<input id="Firstname" type="text" placeholder="Firstname" value="${userProfile.firstName}">
 					<h5>Lastname</h5>
-					<input id="Lastname" type="text" placeholder="Lastname">
+					<input id="Lastname" type="text" placeholder="Lastname" value="${userProfile.lastName}">
 					<h5>Email</h5>
-					<input id="Email" type="text" placeholder="Email">
-					<button class='btn'>Save</button>
-					<div id=panel></div>
+					<input id="Email" type="text" placeholder="Email" value="${userProfile.email}">
+					<br><br>
+					<input class="btn  btn-info input-xlarge" type="button" value="Save">
+
 				</div>
 			</div>
 		</div>
@@ -54,10 +58,6 @@
 	<c:import url="/jsp/footer.jsp" />
 </body>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$('.btn').click(function() {
-
-		});
-	});
+	
 </script>
 </html>

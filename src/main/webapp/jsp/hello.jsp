@@ -10,14 +10,10 @@
 <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <script type="text/javascript" src="<c:url value="/js/jquery.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/js/jquery-ui.js"/>"></script>
-<script type="text/javascript"
-	src="<c:url value="/js/bootstrap.min.js"/>"></script>
-<link type="text/css" rel="stylesheet" media="all"
-	href="<c:url value="/css/jquery-ui.css"/>" />
-<link type="text/css" rel="stylesheet" media="all"
-	href="<c:url value="/css/style.css"/>" />
-<link type="text/css" rel="stylesheet" media="all"
-	href="<c:url value="/css/bootstrap.min.css"/>" />
+<script type="text/javascript"	src="<c:url value="/js/bootstrap.min.js"/>"></script>
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/jquery-ui.css"/>" />
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/style.css"/>" />
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/bootstrap.min.css"/>" />
 
 <title>NBT Greets U</title>
 </head>
@@ -29,7 +25,7 @@
 				<c:import url="/jsp/header.jsp" />
 				<div class="span8">
 					<div class="btn-group">
-						<h2>Hello service</h2>
+						<h3>Hello service</h3><br>
 						<tb> <input id="inputName" type="text" placeholder="Type your name"> <br>
 							<input id="sumbitButton" type="button" class="btn btn-info input-xlarge" value="submit" onclick="showHelloDialog()"> 
 							</tb>

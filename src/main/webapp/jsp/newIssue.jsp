@@ -37,7 +37,7 @@
 				<!-- Main Container -->
 				<div class="span8">
 					<h3>Create New Issue</h3>
-				</div>
+				</div><br>
 				<div class="span5">
 					<h5>CR#</h5>
 					<input id="numberCR" type="text" placeholder="CR number">

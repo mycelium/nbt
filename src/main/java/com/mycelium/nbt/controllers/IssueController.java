@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class IssueController {
 	Logger _logger = Logger.getLogger(IssueController.class);
 
-	@RequestMapping(value = "/new", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView createNewIssie() {
 		return new ModelAndView("newIssue");
 	}

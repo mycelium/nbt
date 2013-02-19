@@ -31,10 +31,8 @@
 				<c:import url="/jsp/header.jsp" />
 				<!-- Main Container -->
 				<div class="span10">
-					<div class="topElements">
-						<h2>Users</h2>
-						
-					</div>
+						<h3>Users</h3>
+					<br>
 					<table class="table table-hover table-condensed">
 						<thead>
 							<th>Login</th>
@@ -45,7 +43,7 @@
 						</thead>
 						<c:forEach items="${users}" var="user">
 							<tr id="user_${user.id}">
-								<td>${user.login}</td>
+								<td><a href="${api_url}/${user.id}">${user.login}</a></td>
 								<td>${user.lastName}</td>
 								<td>${user.firstName}</td>
 								<td>${user.email}</td>

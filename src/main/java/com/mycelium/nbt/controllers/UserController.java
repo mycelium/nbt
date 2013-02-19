@@ -27,7 +27,7 @@ public class UserController {
 	RoleDao _roleDao;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView getProfilePage() {
+	public ModelAndView getUsers() {
 		ModelAndView mav = new ModelAndView("users");
 		mav.addObject("users", _userDao.findAll());
 		return mav;
@@ -59,4 +59,13 @@ public class UserController {
 		_logger.info("Success delete user = " + deletedUser);
 		return "redirect:/site/user";
 	}
-}
+	@RequestMapping(value = "/{id}",method = RequestMethod.GET)
+	public ModelAndView getProfile(@PathVariable("id") String id) {
+		ModelAndView mav = new ModelAndView("profile");
+		mav.addObject("userProfile", _userDao.findOne(id));
+		return mav;
+	}
+
+	
+	
+	}

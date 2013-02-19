@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ page pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
@@ -17,7 +16,7 @@
     <link type="text/css" rel="stylesheet" media="all" href="<c:url value="/css/style.css"/>"/>
     <link type="text/css" rel="stylesheet" media="all" href="<c:url value="/css/bootstrap.min.css"/>"/>
 
-    <title>FAQ</title>
+<title>FAQ</title>
 </head>
 <body>
 
@@ -25,21 +24,17 @@
         <div class="container-fluid">
             <div class="row-fluid">
 			<c:import url="/jsp/header.jsp" />
-                				
                 <div class="span5">
-                    <h3>Feedback:</h3>
+                    <h3>Feedback:</h3><br>
                             <h5>What`s a problem? </h5>
 							<input id="question" type="text" class="input-xlarge" placeholder="Your question">
                             <textarea rows="3" input id="showMeArea"  type="text" class="input-xlarge">
                             </textarea>
                             <input id="showMessage" type="button" class="btn btn-info input-xlarge" value="Show Message!">
-
                 </div>
                 <script>
                     $('#showMessage').on('click', function(){
-                    $('#showMeArea').val('The answer to Ur question <'+question.value+ '> will be sent by email!');
-
-                    });
+                    $('#showMeArea').val('The answer to Ur question <'+question.value+ '> will be sent by email!');});
                 </script>
             </div>
         </div>
