@@ -1,5 +1,6 @@
 package com.mycelium.nbt.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Repository;
 
 import com.mycelium.nbt.model.entities.RoleEntity;
+import com.mycelium.nbt.model.enums.RoleEnum;
 
 @Repository
 public class RoleDao implements CollectionNames {
@@ -21,23 +23,27 @@ public class RoleDao implements CollectionNames {
 
 	@PostConstruct
 	void init() {
-		if (_mongoTemplate.collectionExists(COLLECTION_ROLES)) {
-			_mongoTemplate.dropCollection(COLLECTION_ROLES);
+		if (!_mongoTemplate.collectionExists(COLLECTION_ROLES)) {
+			_mongoTemplate.createCollection(COLLECTION_ROLES);
+			RoleEntity role;
+			for (RoleEnum _roleEnum : RoleEnum.values()) {
+				role = new RoleEntity(_roleEnum.toString());
+				addRole(role);
+			}
 		}
-		_mongoTemplate.createCollection(COLLECTION_ROLES);
-		RoleEntity role = new RoleEntity("admin");
-		addRole(role);
-		role = new RoleEntity("user");
-		addRole(role);
 	}
 
-	public void addRole(RoleEntity role) {
+	private void addRole(RoleEntity role) {
 		roleAsMap.put(role.get_caption(), role);
 		_mongoTemplate.save(role, COLLECTION_ROLES);
 	}
 
 	public List<RoleEntity> findAll() {
-		return _mongoTemplate.findAll(RoleEntity.class, COLLECTION_ROLES);
+		List<RoleEntity> roles = new ArrayList<RoleEntity>();
+		for (RoleEnum _roleEnum : RoleEnum.values()) {
+			roles.add(roleAsMap.get(_roleEnum.toString()));
+		}
+		return roles;
 	}
 	
 	public RoleEntity findByName(String caption){
