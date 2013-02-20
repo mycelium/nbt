@@ -11,6 +11,6 @@
 		<li class="nav-header">Another list header</li>
 		<li><a href="${api_url}/user">Users</a></li>
 		<li class="divider"></li>
-		<li><a href="help">Help</a></li>
+		<li><a href="${api_url}/help">Help</a></li>
 	</ul>
 </div>
