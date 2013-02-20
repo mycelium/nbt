@@ -3,10 +3,11 @@ package com.mycelium.nbt.model.entities;
 public class RoleEntity extends Entity {
 	private String _id;
 	private String _caption;
-	
-	public RoleEntity(){
+
+	public RoleEntity() {
 	}
-	public RoleEntity(String caption){
+
+	public RoleEntity(String caption) {
 		_caption = caption;
 	}
 
@@ -19,14 +20,14 @@ public class RoleEntity extends Entity {
 	public void setId(String id) {
 		this._id = id;
 	}
-	
-	public String get_caption() {
+
+	public String getCaption() {
 		return _caption;
 	}
-	public void set_caption(String _caption) {
-		this._caption = _caption;
+
+	public RoleEntity setCaption(String caption) {
+		_caption = caption;
+		return this;
 	}
-	
-	
 
 }

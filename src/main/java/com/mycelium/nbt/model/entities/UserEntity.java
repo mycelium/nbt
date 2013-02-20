@@ -6,7 +6,7 @@ public class UserEntity extends Entity {
 	private String _id;
 	private String _login;
 	private String _email;
-	private String _role;
+	private String _roleId;
 	private String _firstName;
 	private String _lastName;
 	private String _password;
@@ -16,7 +16,7 @@ public class UserEntity extends Entity {
 	}
 	public UserEntity(String login, String role, String email, String firstName, String lastName, String password){
 		_login = login;
-		_role = role;
+		_roleId = role;
 		_email = email;
 		_firstName = firstName;
 		_lastName = lastName;
@@ -41,12 +41,12 @@ public class UserEntity extends Entity {
 		_login = login;
 	}
 
-	public String getRole() {
-		return _role;
+	public String getRoleId() {
+		return _roleId;
 	}
 	
-	public void setRole(String role) {
-		this._role = role;
+	public void setRole(String roleId) {
+		this._roleId = roleId;
 	}
 	
 	public String getEmail() {
