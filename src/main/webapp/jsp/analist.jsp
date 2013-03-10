@@ -27,9 +27,11 @@
 						<thead>
 							<th>CRs</th>
 						</thead>
-						<td>${crs}</td>
+						<c:forEach items="${analist}" var="crs">
+						<td>${crs.caption}</td>
+						</c:forEach>
 					</table><br>
-					<a href="javascript:createCr()" class="btn btn-info">Add CR</a>
+					<a href="${api_url}/cr" class="btn btn-info">Add CR</a>
 					</div>
 					<div class="span4" >
 					<div class="btn-group" >
@@ -45,7 +47,6 @@
 								}
 					</style><br>
 					<button class="btn btn-info">Edit CR</button><br><br>
-				
 					<button class="btn btn-info" id="editcr">Add issue to CR</button>
 					<style type="text/css">
 					  #editcr { width: 100%;}
@@ -53,15 +54,20 @@
 					
 					</div>
 					
-					<div class="span4" >
+					<div class="span4">
+					<a class="btn btn-info" id="newIssue" href="${api_url}/issue">New issue</a>
+					<style type="text/css">
+					  #newIssue { width: 130%;}
+					</style>
 					<h5>Read and marked issues</h5>
 					<table class="table table-hover table-condensed">
 						<td>${issues}</td>
-					</table><br>
+					</table><br>					 
 					<div class="btn-group" >
-					  <button class="btn btn-info"  >Delete all with connections</button>
+					  <button class="btn btn-info" >Delete all with connections</button>
 					  <button class="btn btn-info" >Delete marked</button>
 					 </div>
+
 					</div>
 				</div>
 			</div>
@@ -86,9 +92,9 @@
 					</form>
 				</div>
 <script type="text/javascript">
-var xmlhttp = new XMLHttpRequest();
-	function createCr() {
-		$('#addCrDialog').dialog({
+
+function createCr() {
+	$('#addCrDialog').dialog({
 			title : "New Cr",
 			width : 600	,
 			resizable : false,
@@ -102,13 +108,6 @@ var xmlhttp = new XMLHttpRequest();
 	            }
 	        }});
 	}
-	// function deleteUser(id, login){
-		// if(confirm('Are you shure to delete user with login "'+login+'" ?')){
-			// xmlhttp.open('DELETE', window.location.href + '/' + id, true);
-            // xmlhttp.send();
-            // $("#user_"+id).remove();
-		// }
-	// }
 </script>
-	</body>
+</body>
 </html>

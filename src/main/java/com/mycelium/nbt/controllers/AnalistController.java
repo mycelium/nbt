@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import com.mycelium.nbt.model.dao.CrDao;
 import com.mycelium.nbt.model.dao.RoleDao;
-import com.mycelium.nbt.model.dao.UserDao;
+import com.mycelium.nbt.model.dao.IssueDao;
 import com.mycelium.nbt.model.entities.CrEntity;
+import com.mycelium.nbt.model.entities.IssueEntity;
 
 @Controller
 @RequestMapping(value = "/analist")
@@ -24,16 +25,36 @@ public class AnalistController {
 	@Autowired
 	CrDao _crDao;
 	@Autowired
-	RoleDao _roleDao;
+	IssueDao _issueDao;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getCr() {
 		ModelAndView mav = new ModelAndView("analist");
 		mav.addObject("crs", _crDao.findAll());
+		mav.addObject("issues", _issueDao.findAll());
+		return mav;
+	}
+	@RequestMapping(value = "/issue", method = RequestMethod.GET)
+	public ModelAndView createNewIssie() {
+		return new ModelAndView("newIssue");
+	}
+	@RequestMapping(value = "/cr",method = RequestMethod.GET)
+	public ModelAndView createNewCr() {
+		return new ModelAndView("newCr");
+	}
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/issues", method = RequestMethod.GET)
+	public ModelAndView getIssue() {
+		ModelAndView mav = new ModelAndView("analist");
+		mav.addObject("issues", _issueDao.findAll());
 		return mav;
 	}
 	
-	@RequestMapping(value = "/new", method = RequestMethod.POST)
+	/* @RequestMapping(value = "/new", method = RequestMethod.POST)
     public String addCrs(HttpServletRequest request) {
         String caption = request.getParameter("caption");
         String author = request.getParameter("author");
@@ -41,6 +62,6 @@ public class AnalistController {
         
         CrEntity newCr = new CrEntity(caption, author);
         _crDao.addCRs(newCr);
-        return "redirect:/site/analist";
-    }
+        return "redirect:/site/analist"; 
+    }*/
 }

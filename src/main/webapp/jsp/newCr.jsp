@@ -19,7 +19,7 @@
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/bootstrap.min.css"/>" />
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/datepicker.css"/>" />
 
-<title>Issue view</title>
+<title>Cr view</title>
 </head>
 <body>
 	<div class="container content">
@@ -27,25 +27,46 @@
 			<div class="row-fluid">
 				<c:import url="/jsp/header.jsp" />
 				<div class="span10">
-					<h3>Issue view</h3>
+					<h3>CR view</h3>
 				</div><br>
-				<div class="span6">
+				<div class="span3">
 					<div class="btn-group" >
-					  <button class="btn btn-info">prev</button>
-					  <button class="btn btn-info">issue</button>
-					  <button class="btn btn-info">next</button>
+					  <button class="btn">prev</button>
+					  <button class="btn">issue</button>
+					  <button class="btn">next</button>
 					 </div>
 					<h5>Title</h5>
-					<input type="text" placeholder="Title"><br>
+					<input id="title" type="text" placeholder="Title">
+					<style type="text/css">
+					  #title { width: 80%;}
+					</style>
+					<br>
 					<h5>Description</h5>
 					<textarea rows="7" input id="descriptionOfIssue" placeholder="Description"></textarea>
+					<style type="text/css">
+					  #descriptionOfIssue { width: 80%;}
+					</style>
 					<h5>Attached</h5>
+				</div>
+				<div class="span5">
+					<a class="btn btn-info" id="newIssue" href="${api_url}/issue">New issue</a>
+					<style type="text/css">
+					  #newIssue { width: 90%;}
+					</style>
+					<h5>Issues</h5>
+					<table class="table table-hover table-condensed">
+						<td>${issues}</td>
+					</table><br>					 
+					<div class="btn-group" >
+					  <button class="btn" >Assign parant</button>
+					  <button class="btn" >Assign son</button>
+					 </div>
 					</div>
-					<div class="span4">
-					<button class="btn btn-info">Add mark</button><br><br>
-					<button class="btn btn-info">Add to read list</button><br><br>
+					<div class="span2">
+					<br><br><br><br>
+					<button class="btn btn-info">Select baseline</button><br><br>
+					<button class="btn btn-info">Create baseline</button>
 					</div>
-			
 		</div>
 		</div>
 	</div>
