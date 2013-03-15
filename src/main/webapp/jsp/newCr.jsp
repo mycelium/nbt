@@ -49,7 +49,7 @@
 					<h5>Attached</h5>
 				</div>
 				<div class="span5">
-					<a class="btn btn-info" id="newIssue" href="${api_url}/issue">New issue</a>
+					<a class="btn btn-info" id="newIssue" >Add new issue</a>
 					<style type="text/css">
 					  #newIssue { width: 90%;}
 					</style>

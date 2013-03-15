@@ -31,9 +31,9 @@
 				</div><br>
 				<div class="span6">
 					<div class="btn-group" >
-					  <button class="btn btn-info">prev</button>
-					  <button class="btn btn-info">issue</button>
-					  <button class="btn btn-info">next</button>
+					  <button class="btn">prev</button>
+					  <button class="btn">issue</button>
+					  <button class="btn">next</button>
 					 </div>
 					<h5>Title</h5>
 					<input type="text" placeholder="Title"><br>
