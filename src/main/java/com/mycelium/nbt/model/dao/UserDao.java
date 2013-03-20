@@ -11,11 +11,15 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.mycelium.nbt.model.entities.UserEntity;
+import com.mycelium.nbt.model.enums.RoleType;
 
 @Repository
 public class UserDao implements CollectionNames {
 	@Autowired
 	private MongoOperations _mongoTemplate;
+	
+	@Autowired
+	private RoleDao _roleDao;
 
 	@PostConstruct
 	void init() {
@@ -23,14 +27,14 @@ public class UserDao implements CollectionNames {
 			_mongoTemplate.dropCollection(COLLECTION_USERS);
 		}
 		_mongoTemplate.createCollection(COLLECTION_USERS);
-		UserEntity user = new UserEntity("lukan", "admin",
+		UserEntity user = new UserEntity("lukan", RoleType.Admin.getId(),
 				"lukan@mycelium.com", "Anton", "Lukashin", "pass01");
 		addUser(user);
-		user = new UserEntity("gambit", "admin", "pkozlov@mycelium.com",
-				"Pavel", "Kozlov", "pass02");
+		user = new UserEntity("gambit", RoleType.Developer.getId(),
+				"pkozlov@mycelium.com", "Pavel", "Kozlov", "pass02");
 		addUser(user);
-		user = new UserEntity("msalamatov", "admin", "msalamatov@mycelium.com",
-				"Michail", "Salamatov", "pass03");
+		user = new UserEntity("msalamatov", RoleType.Manager.getId(),
+				"msalamatov@mycelium.com", "Michail", "Salamatov", "pass03");
 		addUser(user);
 	}
 
