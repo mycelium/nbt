@@ -2,6 +2,7 @@ package com.mycelium.nbt.model.entities;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Date;
 
 public class ChangeRequestEntity extends Entity {
 
@@ -9,6 +10,11 @@ public class ChangeRequestEntity extends Entity {
 	private String _caption;
 	private String _authorId;
 	private String _parentId;
+	private String _description;
+	private String _priority;
+	private Date _dateOfStart;
+	private Date _dateOfFinish;
+	private String _hours;
 	private List<String> _watcherIdList;
 	private List<String> _taskIdList;
 
@@ -22,12 +28,19 @@ public class ChangeRequestEntity extends Entity {
 	}
 
 	public ChangeRequestEntity(String caption, String author,
-			List<String> watchers, List<String> idTasks, String parentId) {
+			 String parentId, String description,
+			String priority,Date dateOfStart, Date dateOfFinish, String hours,
+			List<String> watchers, List<String> idTasks) {
 		_caption = caption;
 		_authorId = author;
 		_parentId = parentId;
 		_watcherIdList = watchers;
 		_taskIdList = idTasks;
+		_description=description;
+		_priority=priority;
+		_dateOfStart=dateOfStart;
+		_dateOfFinish=dateOfFinish;
+		_hours=hours;
 	}
 
 	@Override
@@ -35,7 +48,6 @@ public class ChangeRequestEntity extends Entity {
 		return _id;
 	}
 
-	@Override
 	public void setId(String id) {
 		_id = id;
 	}
@@ -78,5 +90,45 @@ public class ChangeRequestEntity extends Entity {
 
 	public void setParentId(String parentId) {
 		_parentId = parentId;
+	}
+	////////////////////////////////////////////////////
+			public String getDescription() {
+		return _description;
+	}
+
+	public void setDescription(String description) {
+		_description=description;
+	}
+	
+	public String getPriority() {
+		return _priority;
+	}
+
+
+	public void setPriority(String priority) {
+		_priority=priority;
+	}
+		
+	public Date getDateOfFinish() {
+		return _dateOfFinish;
+	}
+		public void setDateOfFinish(Date dateOfFinish) {
+		_dateOfFinish=dateOfFinish;
+	}
+	
+	public Date getDateOfStart() {
+		return _dateOfStart;
+	}
+		public void setDateOfStart(Date dateOfStart) {
+		_dateOfStart=dateOfStart;
+	}
+	
+	public String getHours() {
+		return _hours;
+	}
+
+
+	public void setHours(String hours) {
+		_hours=hours;
 	}
 }

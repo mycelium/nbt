@@ -71,11 +71,11 @@
 		<th>E-mail</th>
 		</thead>
 			<tr>
-			<td><input class="input-small" placeholder="Login" name="login"></td>
-			<td><input class="input-small" placeholder="Last Name" name="lastName"></td>
-			<td><input class="input-small" placeholder="First Name" name="firstName"></td>
-			<td><input class="input-small" placeholder="E-mail" name="email"></td>
-			<td><input type="password" class="input-small" placeholder="Password" name="password"></td>
+			<td><input class="input-small" placeholder="Login" id="login" name="login"></td>
+			<td><input class="input-small" placeholder="Last Name" id="lastName" name="lastName"></td>
+			<td><input class="input-small" placeholder="First Name" id="firstName" name="firstName"></td>
+			<td><input class="input-small" placeholder="E-mail" id="email" name="email"></td>
+			<td><input type="password" class="input-small" placeholder="Password" id="password" name="password"></td>
 			</tr>
 			</table>
 	</form>

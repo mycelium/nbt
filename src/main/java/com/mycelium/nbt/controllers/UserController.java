@@ -45,7 +45,8 @@ public class UserController {
             _logger.warn("User with login = " + login + "already exists");
             return "redirect:/site/user";
         }
-        UserEntity newUser = new UserEntity(login, _roleDao.findByName("user").getId(), email, firstName, lastName,
+		_logger.warn("User with login = " + login + "already exists");
+        UserEntity newUser = new UserEntity(login, /*_roleDao.findByName("user").getId()*/ "chacha", email, firstName, lastName,
                 password);
         _userDao.addUser(newUser);
         return "redirect:/site/user";

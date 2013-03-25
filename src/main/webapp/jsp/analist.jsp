@@ -31,29 +31,21 @@
 				<div class="span10">
 					<h3>Analyst interface</h3>
 					<div class="span2">
-						<br> <br> <a class="btn" id="newCr">Create new CR</a> <br>
-						<table class="table table-hover table-condensed">
-							<thead>
-								<tr>
-									<th>CRs:</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${crs}" var="cr">
-									<tr>
-										<td>${cr.caption}</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
+						<br> <br> <a class="btn" id="newCr" href="${api_url}/cr/new">Create new CR</a> <br>
+						<h5>CRs:</h5>
+						<select id="crTable" multiple style="width: 100%">
+							<c:forEach items="${crs}" var="cr">
+								<option>${cr.caption}</option>
+							 <a href="${api_url}/cr/${cr.id}" class="btn btn-info">Edit CR</a><br>
+							 </c:forEach>
+						</select>
 					</div>
 
 					<div class="span4">
 						<br> <br>
 						<div class="tabbable">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#tab1" data-toggle="tab">In
-										things</a></li>
+								<li class="active"><a href="#tab1" data-toggle="tab">In things</a></li>
 								<li><a href="#tab2" data-toggle="tab">Out things</a></li>
 							</ul>
 							<div class="tab-content">
@@ -65,56 +57,38 @@
 								</div>
 							</div>
 						</div>
-						<br> <a href="${api_url}/cr/changeRequestId" class="btn btn-info">Edit CR</a><br>
+						<br>
 						<br>
 						<button class="btn btn-info" id="editcr">Add issue to CR</button>
 					</div>
 
 					<div class="span4">
 
-						<a class="btn" id="newIssue" href="${api_url}/issue/new"> new Issue</a>
+						<a class="btn input-large" id="newIssue" href="${api_url}/issue/view"> new Issue</a>
 							<table class="table table-condensed">
-								<thead>
-									<tr>
-										<th>New issue</th>
-									</tr>
-								</thead>
 								<tr>
-									<td>New issue #
-									<td>
-								</tr>
+									<td>New issue # </td>
+								</tr>							
 								<tr>
-									<td>Not connected issue #
-									<td>
+									<td>Not connected issue #</td>
 								</tr>
 							</table>
 						<h5>Read and marked issues:</h5>
-						<table class="table table-hover table-condensed">
-							<thead>
-								<tr>
-									<th>Issue</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${issues}" var="issue">
-									<tr>
-										<td>${issue.caption}</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
+						
+						<h5>Issues:</h5>
+						<select id="issueTable" multiple style="width: 100%">
+							<c:forEach items="${issues}" var="issue">
+								<option>${issue.caption}</option>
+							</c:forEach>
+						</select>
 						<br>
 						<button class="btn btn-info">Delete marked</button>
 						<br> <br>
-						<button class="btn btn-info" id="delAll">Delete all with
-							connections</button>
+						<button class="btn btn-info" id="delAll">Delete all with connections</button>
 					</div>
-
-
 				</div>
-
-
 			</div>
+						
 		</div>
 	</div>
 	<c:import url="/jsp/footer.jsp" />

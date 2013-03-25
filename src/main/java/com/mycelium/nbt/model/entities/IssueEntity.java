@@ -20,6 +20,19 @@ public class IssueEntity extends Entity {
 	private String _description;
 
 	public IssueEntity() {
+		_caption = "";
+		_reporter = "";
+		_assignees = new ArrayList<String>();
+		_watchers = new ArrayList<String>();
+		_subtasks = new ArrayList<String>();
+		_components = new ArrayList<String>();
+		_typeIssue = "";
+		_statusIssue = "";
+		_priorityIssue = "";
+		_creationDate = new Date();
+		_modificationDate =new Date();
+		_environment = "";
+		_description = "";
 	}
 
 	public IssueEntity(String caption, String reporter,
@@ -48,113 +61,112 @@ public class IssueEntity extends Entity {
 		return _id;
 	}
 
-	@Override
 	public void setId(String id) {
-		this._id = id;
+		_id = id;
 	}
 
-	public String get_caption() {
+	public String getCaption() {
 		return _caption;
 	}
 
-	public void set_caption(String _caption) {
-		this._caption = _caption;
+	public void setCaption(String caption) {
+		_caption = caption;
 	}
 
-	public String get_reporter() {
+	public String getReporter() {
 		return _reporter;
 	}
 
-	public void set_reporter(String _reporter) {
-		this._reporter = _reporter;
+	public void setReporter(String reporter) {
+		_reporter = reporter;
 	}
 
-	public ArrayList<String> get_assignees() {
+	public ArrayList<String> getAssignees() {
 		return _assignees;
 	}
 
-	public void set_assignees(ArrayList<String> _assignees) {
-		this._assignees = _assignees;
+	public void setAssignees(ArrayList<String> assignees) {
+		_assignees = assignees;
 	}
 
-	public ArrayList<String> get_watchers() {
+	public ArrayList<String> getWatchers() {
 		return _watchers;
 	}
 
-	public void set_watchers(ArrayList<String> _watchers) {
-		this._watchers = _watchers;
+	public void setWatchers(ArrayList<String> watchers) {
+		_watchers = watchers;
 	}
 
-	public ArrayList<String> get_subtasks() {
+	public ArrayList<String> getSubtasks() {
 		return _subtasks;
 	}
 
-	public void set_subtasks(ArrayList<String> _subtasks) {
-		this._subtasks = _subtasks;
+	public void setSubtasks(ArrayList<String> subtasks) {
+		_subtasks = subtasks;
 	}
 
-	public ArrayList<String> get_components() {
+	public ArrayList<String> getComponents() {
 		return _components;
 	}
 
-	public void set_components(ArrayList<String> _components) {
-		this._components = _components;
+	public void setComponents(ArrayList<String> components) {
+		_components = components;
 	}
 
-	public String get_typeIssue() {
+	public String getTypeIssue() {
 		return _typeIssue;
 	}
 
-	public void set_typeIssue(String _typeIssue) {
-		this._typeIssue = _typeIssue;
+	public void setTypeIssue(String typeIssue) {
+		this._typeIssue = typeIssue;
 	}
 
-	public String get_statusIssue() {
+	public String getStatusIssue() {
 		return _statusIssue;
 	}
 
-	public void set_statusIssue(String _statusIssue) {
-		this._statusIssue = _statusIssue;
+	public void setStatusIssue(String statusIssue) {
+		this._statusIssue = statusIssue;
 	}
 
-	public String get_priorityIssue() {
+	public String getPriorityIssue() {
 		return _priorityIssue;
 	}
 
-	public void set_priorityIssue(String _priorityIssue) {
-		this._priorityIssue = _priorityIssue;
+	public void setPriorityIssue(String priorityIssue) {
+		_priorityIssue = priorityIssue;
 	}
 
-	public Date get_creationDate() {
+	public Date getCreationDate() {
 		return _creationDate;
 	}
 
-	public void set_creationDate(Date _creationDate) {
-		this._creationDate = _creationDate;
+	public void setCreationDate(Date creationDate) {
+		_creationDate = creationDate;
 	}
 
-	public Date get_modificationDate() {
+	public Date getModificationDate() {
 		return _modificationDate;
 	}
 
-	public void set_modificationDate(Date _modificationDate) {
-		this._modificationDate = _modificationDate;
+	public void setModificationDate(Date modificationDate) {
+		_modificationDate = modificationDate;
 	}
 
-	public String get_environment() {
+	public String getEnvironment() {
 		return _environment;
 	}
 
-	public void set_environment(String _environment) {
-		this._environment = _environment;
+	public void setEnvironment(String environment) {
+		_environment = environment;
 	}
 
-	public String get_description() {
+	public String getDescription() {
 		return _description;
 	}
 
-	public void set_description(String _description) {
-		this._description = _description;
+	public void setDescription(String description) {
+		_description = description;
 	}
 
 }
