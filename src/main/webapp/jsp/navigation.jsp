@@ -8,8 +8,10 @@
 		<li><a href="/nbt">Home</a></li>
 		<li class="divider"/>
 		<li><a href="${api_url}/analist">Analyst</a></li>
+		<li><a href="${api_url}/manager">Manager</a></li>
 		<li><a href="${api_url}/user">Users</a></li>
 		<li class="divider"/>
 		<li><a href="${api_url}/help">Help</a></li>
+		<li><a href="nbt/j_spring_security_logout"> Logout</a></li>
 	</ul>
 </div>

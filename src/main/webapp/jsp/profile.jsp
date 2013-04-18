@@ -38,7 +38,6 @@
 				<div class="span8">
 					<h3>Information</h3>
 				</div>
-				${userProfile}
 				<div class="span5">
 					<h5>Login</h5>
 					<input id="Login" type="text" placeholder="Login" value="${userProfile.login}">

@@ -17,6 +17,8 @@ public class ChangeRequestEntity extends Entity {
 	private String _hours;
 	private List<String> _watcherIdList;
 	private List<String> _taskIdList;
+	private String _pathToFile;
+	private List<String> _issueIdList;
 
 	public ChangeRequestEntity() {
 		_caption = "";
@@ -24,23 +26,25 @@ public class ChangeRequestEntity extends Entity {
 		_parentId = "";
 		_watcherIdList = new LinkedList<String>();
 		_taskIdList = new LinkedList<String>();
+		_issueIdList = new LinkedList<String>();
 
 	}
 
 	public ChangeRequestEntity(String caption, String author,
 			 String parentId, String description,
 			String priority,Date dateOfStart, Date dateOfFinish, String hours,
-			List<String> watchers, List<String> idTasks) {
+			List<String> watchers, List<String> issueIdList, String pathToFile) {
 		_caption = caption;
 		_authorId = author;
 		_parentId = parentId;
 		_watcherIdList = watchers;
-		_taskIdList = idTasks;
+		_issueIdList = issueIdList;
 		_description=description;
 		_priority=priority;
 		_dateOfStart=dateOfStart;
 		_dateOfFinish=dateOfFinish;
 		_hours=hours;
+		_pathToFile=pathToFile;
 	}
 
 	@Override
@@ -76,12 +80,19 @@ public class ChangeRequestEntity extends Entity {
 		_watcherIdList = watchers;
 	}
 
-	public List<String> getIdTasks() {
+	public List<String> getTaskIdList() {
 		return _taskIdList;
 	}
 
-	public void setIdTasks(List<String> idTasks) {
+	public void setTaskIdList(List<String> idTasks) {
 		_taskIdList = idTasks;
+	}
+	public List<String> getIssueIdList() {
+		return _issueIdList;
+	}
+
+	public void setIssueIdList(List<String> issueIdList) {
+		_issueIdList = issueIdList;
 	}
 
 	public String getParentId() {
@@ -131,4 +142,14 @@ public class ChangeRequestEntity extends Entity {
 	public void setHours(String hours) {
 		_hours=hours;
 	}
+	
+	public void setPathToFile(String pathToFile)
+	{
+		_pathToFile=pathToFile;
+	}
+	public String getPathToFile()
+	{
+		return _pathToFile;
+	}
+	
 }

@@ -25,7 +25,7 @@
 <link type="text/css" rel="stylesheet" media="all"
 	href="<c:url value="/css/datepicker.css"/>" />
 
-<title>New CR</title>
+<title>Task view</title>
 </head>
 <body>
 	<div class="container content">
@@ -33,55 +33,31 @@
 			<div class="row-fluid">
 				<c:import url="/jsp/header.jsp" />
 				<div class="span10">
-				<form id="newCr" name="newCr" action="${api_url}/analist/cr/add" method="POST" enctype="multipart/form-data">
-					<h3>Create New CR</h3>
+				
+					<h3>Task View</h3>
 				</div><br>
 				<div class="span5">
 					<h5>Title</h5>
-					<input id="crCaption" name="crCaption" type="text" placeholder="Title">		
-					<br>
-					<h5>Author</h5>
-					<input id="crAuthor" name="crAuthor" type="text" placeholder="Author">		
+					<input id="taskCaption" name="taskCaption" type="text" placeholder="Title">		
 					<br>
 					<h5>Description</h5>
-					<textarea rows="7" input id="crDescription" name="crDescription" placeholder="Description"></textarea>
-					<h5>Parent CR</h5>
-					<select id="crParentId" name="crParentId">
-						<option>1</option>
+					<textarea rows="7" input id="taskDescription" name="taskDescription" placeholder="Description"></textarea>
+					<h5>CR</h5>
+					<select id="crId" name="crId" multiple>
+					<c:forEach items="${taskView.attachedCRs}" var="cr">
+						<option>${cr}</option>
+					</c:forEach>
 					</select>
-					<h5>Priority</h5>
-					<select id="crPriority" name="crPriority">
-						<option>Low</option>
-						<option>Normal</option>
-						<option>As Fast As You Can</option>
-					</select>
+					
 				</div>
 				<div class="span5">
 					<h5>Date of creation</h5>
-					<input type="text" id="crDateOfStart" name="crDateOfStart">
-					<h5>Date of finish</h5>
-					<input type="text" id="crDateOfFinish" name="crDateOfFinish">
-					<h5>Hours</h5>
-					<input id="crHours" name="crHours" type="text" placeholder="Hours">
-					<h5>Responsible persons</h5>
-					<select id="crWatchers" name="crWatchers" multiple>
-					<c:forEach items="${users}" var="user">
-						<option>${user.login}</option>
-					</c:forEach>
-
-					</select>
-					<h5>Issue</h5>
-					<select id="crIdTask" name="crIdTask" multiple>
-					<c:forEach items="${issues}" var="issue">
-					<option  value="${issue.id}">${issue.caption}</option>
-					</c:forEach>
-					</select>
-					<h5>Attach</h5>
-					<input type="file" name="file">
+					<input type="text" id="taskDateOfStart" name="taskDateOfStart">
+					
 				</div>
 			</div>
 			<div class="rightControls">
-			<input id="but1" type="submit" class="btn btn-info">
+			<input type="submit" class="btn btn-info">
 			</div>
 		</div>
 	</div>
@@ -91,11 +67,7 @@
 <script type="text/javascript">
 	$(function(){
     	window.prettyPrint && prettyPrint();
-        $('#crDateOfFinish').datepicker({
-        	format: 'dd-mm-yyyy',
-        	weekStart:1
-        });
-		$('#crDateOfStart').datepicker({
+        $('#taskDateOfStart').datepicker({
         	format: 'dd-mm-yyyy',
         	weekStart:1
         });

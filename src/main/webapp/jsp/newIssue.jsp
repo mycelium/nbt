@@ -33,7 +33,7 @@
 			<div class="row-fluid">
 				<c:import url="/jsp/header.jsp" />
 				<div class="span10">
-				<form id="newIssue" name="newIssue" action="${api_url}/analist/issue/add" method="GET">
+				<form id="newIssue" name="newIssue" action="${api_url}/analist/issue/add" method="POST" enctype="multipart/form-data">
 					<h3>Create New Issue</h3>
 				</div><br>
 				<div class="span5">
@@ -46,7 +46,7 @@
 					<input id="issueReporter" name="issueReporter" type="text" placeholder="Reporter">		
 					<br>
 					<h5>Assignees</h5>
-					<select id="issueAssignees" name="issueAssignees">
+					<select id="issueAssignees" name="issueAssignees" multiple>
 					<c:forEach items="${users}" var="user">
 						<option>${user.login}</option>
 					</c:forEach>
@@ -75,7 +75,7 @@
 					
 					<h5>Type</h5>
 					<select id="issueType" name="issueType">
-						<option>Bysiness requirement</option>
+						<option>Business requirement</option>
 						<option>Inquiry</option>
 						<option>Bug revealed</option>
 					</select>
@@ -98,7 +98,9 @@
 					<h5>Modification date</h5>
 					<input type="text" class="span4" id="issueModificationDate" name="issueModificationDate">
 					<h5>Environment</h5>
-					<input id="issueEnvironment" name="issueEnvironment" type="text" placeholder="issueEnvironment">					
+					<input id="issueEnvironment" name="issueEnvironment" type="text" placeholder="issueEnvironment">	
+					<h5>Attach</h5>
+					<input type="file" name="file">
 				</div>
 			</div>
 			<div class="rightControls">

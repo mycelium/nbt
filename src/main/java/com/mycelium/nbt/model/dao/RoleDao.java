@@ -33,6 +33,7 @@ public class RoleDao implements CollectionNames {
 		roles.add(new RoleEntity("Developer"));
 		roles.add(new RoleEntity("Manager"));
 		roles.add(new RoleEntity("Qa"));
+		roles.add(new RoleEntity("ROLE_USER"));
 		_mongoTemplate.insert(roles, COLLECTION_ROLES);
 		for (RoleEntity role : findAll()) {
 			RoleType.valueOf(role.getCaption()).setCaption(role.getCaption())

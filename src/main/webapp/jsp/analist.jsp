@@ -22,7 +22,7 @@
 
 <title>Analyst interface</title>
 </head>
-<body>
+<body onload="getInfo()">
 
 	<div class="container content">
 		<div class="container-fluid">
@@ -30,15 +30,15 @@
 				<c:import url="/jsp/header.jsp" />
 				<div class="span10">
 					<h3>Analyst interface</h3>
-					<div class="span2">
+					<div class="span2" >
 						<br> <br> <a class="btn" id="newCr" href="${api_url}/cr/new">Create new CR</a> <br>
 						<h5>CRs:</h5>
-						<select id="crTable" multiple style="width: 100%">
+						<select id="crTable"  style="width: 100%"  multiple  onchange="getInfo()">
 							<c:forEach items="${crs}" var="cr">
-								<option>${cr.caption}</option>
-							 <a href="${api_url}/cr/${cr.id}" class="btn btn-info">Edit CR</a><br>
-							 </c:forEach>
+								<option value="${cr.id}">${cr.caption}</option>
+							</c:forEach>
 						</select>
+						<a href="javascript:editCr()" class="btn btn-info">Edit CR</a>
 					</div>
 
 					<div class="span4">
@@ -50,21 +50,21 @@
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane active" id="tab1">
-									<textarea disabled id="redex1">In</textarea>
+									<textarea disabled id="redex1"  style="width: 94%; height:97px;resize: none;">In</textarea>
 								</div>
 								<div class="tab-pane" id="tab2">
-									<textarea disabled id="redex2">Out</textarea>
+									<textarea disabled id="redex2" style="width: 94%; height:97px;resize: none;">Out</textarea>
 								</div>
 							</div>
 						</div>
-						<br>
-						<br>
-						<button class="btn btn-info" id="editcr">Add issue to CR</button>
+						
+						<button class="btn btn-info"  onclick="javascript:addIssuesToCr()">Add issue to CR </button>
 					</div>
 
 					<div class="span4">
 
-						<a class="btn input-large" id="newIssue" href="${api_url}/issue/view"> new Issue</a>
+						
+						<a class="btn " id="newIssue" href="${api_url}/issue/new">Create new Issue</a>
 							<table class="table table-condensed">
 								<tr>
 									<td>New issue # </td>
@@ -78,13 +78,34 @@
 						<h5>Issues:</h5>
 						<select id="issueTable" multiple style="width: 100%">
 							<c:forEach items="${issues}" var="issue">
-								<option>${issue.caption}</option>
+							<c:if test="${empty issue.attachedCRs}">
+								<c:if test="${issue.marker==''}"><option class="issues" id="issue_${issue.id}" value="${issue.id}" style="font-weight:bold">${issue.caption}</option></c:if>
+								<c:if test="${issue.marker!=''}"><option class="issues" id="issue_${issue.id}" value="${issue.id}" style="background:${issue.marker}">${issue.caption}</option></c:if>
+								</c:if>
 							</c:forEach>
 						</select>
-						<br>
+													
+					<div class="btn-group">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" data-target="#">
+						Mark
+						<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+						<button class="btn btn-info"value="green" style="color:black;background:green" onclick="javascript:addMark(this)">Green</button>
+						<button class="btn btn-info"value="yellow" style="color:black;background:yellow" onclick="javascript:addMark(this)">Yellow</button>
+						<button class="btn btn-info"value="red" style="color:black;background:red" onclick="javascript:addMark(this)">Red</button>
+						
+						</ul>
+						
+						
+					</div>
+					<button class="btn"value="" onclick="javascript:addMark(this)">Unmark</button>
+					<a href="javascript:editIssue()" class="btn btn-info">Edit Issue</a>
+						<br><br>
 						<button class="btn btn-info">Delete marked</button>
 						<br> <br>
 						<button class="btn btn-info" id="delAll">Delete all with connections</button>
+
 					</div>
 				</div>
 			</div>
@@ -92,9 +113,71 @@
 		</div>
 	</div>
 	<c:import url="/jsp/footer.jsp" />
-
-	<div id="dialogHello" style="display: none"></div>
-
 </body>
+<script type="text/javascript">
 
+function editCr()
+{
+	window.location="/nbt/site/analist/cr/"+document.getElementById("crTable").value;
+}
+function editIssue()
+{
+	window.location="/nbt/site/analist/issue/"+document.getElementById("issueTable").value;
+}
+
+function addMark(elem){
+var dat = JSON.stringify({
+    idList : $('#issueTable').val(),
+	marker : elem.value
+});
+$.ajax({
+type:"POST",
+contentType:"application/json",
+dataType:"json",
+url:window.location.href + "/mark",
+data:dat
+}).done(function() { 
+var issues=$('#issueTable').val(); 
+for(var i=0;i<issues.length;++i)
+{
+		$('#issue_'+issues[i]).css('background',elem.value);
+		
+}
+});
+}
+
+function addIssuesToCr()
+{
+var dat = JSON.stringify({
+    idCRList : $('#crTable').val(),
+	idIssueList: $('#issueTable').val()
+});
+$.ajax({
+type:"POST",
+contentType:"application/json",
+dataType:"json",
+url:window.location.href +"/addIssueToCr",
+data:dat
+}).done(function() {alert("Issuses added to CR!");});
+}
+
+function getInfo()
+{
+	var dat = JSON.stringify({
+    idCRList : $('#crTable').val(),
+	idIssueList: $('#issueTable').val()
+});
+$.ajax({
+type:"POST",
+contentType:"application/json",
+dataType:"text",
+url:window.location.href +"/getInfo",
+data:dat,
+success: function(response) {
+$("#redex1").html(response );
+}
+});
+}
+		
+</script>
 </html>

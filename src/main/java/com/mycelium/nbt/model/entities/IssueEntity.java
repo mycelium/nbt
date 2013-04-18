@@ -18,7 +18,10 @@ public class IssueEntity extends Entity {
 	private Date _modificationDate;
 	private String _environment;
 	private String _description;
-
+	private String _marker;
+	private String _pathToFile;
+	private ArrayList<String> _attachedCRs;
+	
 	public IssueEntity() {
 		_caption = "";
 		_reporter = "";
@@ -33,6 +36,8 @@ public class IssueEntity extends Entity {
 		_modificationDate =new Date();
 		_environment = "";
 		_description = "";
+		_marker="";
+		_attachedCRs=new ArrayList<String>();
 	}
 
 	public IssueEntity(String caption, String reporter,
@@ -40,7 +45,7 @@ public class IssueEntity extends Entity {
 			ArrayList<String> subtasks, ArrayList<String> components,
 			String typeIssue, String statusIssue, String priorityIssue,
 			Date creationDate, Date modificationDate, String environment,
-			String description) {
+			String description, String pathToFile) {
 		_caption = caption;
 		_reporter = reporter;
 		_assignees = assignees;
@@ -54,6 +59,9 @@ public class IssueEntity extends Entity {
 		_modificationDate = modificationDate;
 		_environment = environment;
 		_description = description;
+		_marker="";
+		_pathToFile=pathToFile;
+		_attachedCRs=new ArrayList<String>();
 	}
 
 	@Override
@@ -168,5 +176,29 @@ public class IssueEntity extends Entity {
 	public void setDescription(String description) {
 		_description = description;
 	}
+	public String getMarker() {
+		return _marker;
+	}
 
+	public void setMarker(String marker) {
+		_marker = marker;
+	}
+	
+	public void setPathToFile(String pathToFile)
+	{
+		_pathToFile=pathToFile;
+	}
+	
+	public String getPathToFile()
+	{
+		return _pathToFile;
+	}
+	
+	public ArrayList<String> getAttachedCRs() {
+		return _attachedCRs;
+	}
+
+	public void setAttachedCRs(ArrayList<String> attachedCRs) {
+		_attachedCRs = attachedCRs;
+	}
 }

@@ -8,15 +8,18 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import javax.annotation.PostConstruct;
-
+import org.springframework.data.mongodb.core.query.Update;
+import org.apache.log4j.Logger;
 import com.mycelium.nbt.model.entities.IssueEntity;
+import org.springframework.data.mongodb.core.FindAndModifyOptions;
 
 @Repository
 public class IssueDao implements CollectionNames {
 
+Logger _logger = Logger.getLogger(IssueDao.class);
 	@Autowired
 	private MongoOperations _mongoTemplate;
-	
+
 	@PostConstruct
 	void init() {
 		if (_mongoTemplate.collectionExists(COLLECTION_ISSUES)) {
@@ -37,6 +40,28 @@ public class IssueDao implements CollectionNames {
 
 	public List<IssueEntity> findAll() {
 		return _mongoTemplate.findAll(IssueEntity.class, COLLECTION_ISSUES);
+	}
+	
+	public void updateMarker(String id,String color)
+	{
+	_logger.warn(findOne(id));
+		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(id)),
+		Update.update("_marker", color),IssueEntity.class,COLLECTION_ISSUES);
+	}
+	
+	public void addCR(String id,String idOfCR)
+	{
+		Update param=new Update();
+		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(id)),
+			param.push("_attachedCRs",idOfCR),IssueEntity.class,COLLECTION_ISSUES);
+	}
+	
+		
+	public void delCR(String idOfIssue,String idOfCR) 
+	{
+		Update param=new Update();
+		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(idOfIssue)),
+			param.pull("_attachedCRs",idOfCR),IssueEntity.class,COLLECTION_ISSUES);
 	}
 
 	public List<IssueEntity> findByPriority(String priorityId) {

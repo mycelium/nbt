@@ -8,4 +8,5 @@ public interface CollectionNames {
 	static final String COLLECTION_ROLES = "role";
 	static final String COLLECTION_STATUSES = "status";
 	static final String COLLECTION_TYPES = "type";
+	static final String COLLECTION_TASKS = "tasks";
 }

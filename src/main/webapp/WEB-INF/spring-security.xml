@@ -1,0 +1,57 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+ 
+ <beans:bean id="authenticatedVoter"
+   class="org.springframework.security.access.vote.AuthenticatedVoter" />
+<!-- this voter will have the default attributes -->
+
+<beans:bean id="roleVoter"
+   class="org.springframework.security.access.vote.RoleVoter ">
+  <beans:property name="rolePrefix" value="" />
+</beans:bean>
+
+<beans:bean id="accessDecisionManager"
+   class="org.springframework.security.access.vote.AffirmativeBased">
+  <beans:property name="decisionVoters">
+    <beans:list>
+      <beans:ref bean="roleVoter" />
+      <beans:ref bean="authenticatedVoter" />
+    </beans:list>
+  </beans:property>
+</beans:bean>
+
+<!--><http access-decision-manager-ref="accessDecisionManager" /><-->
+ 
+<http auto-config="true" access-decision-manager-ref="accessDecisionManager" >
+    <intercept-url pattern="/site/manager*" access="Manager" />
+	<intercept-url pattern="/site/analist*" access="Admin" />
+	        <form-login/>
+        <logout />
+</http>
+ <beans:bean id="customUserDetailsService" class="com.mycelium.nbt.model.dao.CustomUserDetailsService"/>
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="customUserDetailsService">
+		 <password-encoder hash="md5"/>
+		 </authentication-provider>
+	</authentication-manager>
+	
+<!-->	<http auto-config="true">
+    <intercept-url pattern="/site/manager*" access="ROLE_USER" />
+
+</http>
+
+	<authentication-manager>
+	  <authentication-provider>
+	    <user-service>
+		<user name="yura" password="lala" authorities="ROLE_USER" />
+	    </user-service>
+	  </authentication-provider>
+	</authentication-manager>
+ 
+<-->
+</beans:beans>

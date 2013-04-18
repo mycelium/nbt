@@ -30,32 +30,29 @@
 					<h3>Issue view</h3>
 				<br>
 				<div class="span6">
-					<div class="btn-group" >
-					  <button class="btn">prev</button>
-					  <button class="btn">issue# ${issueView.id}</button>
-					  <button class="btn">next</button>
-					 </div>
+					<h4>Issue ${issueView.caption}</h4>
+					  <br>
+					
 					<h5>Title</h5>
 					<input type="text" placeholder="Title" value="${issueView.caption}"><br>
 					<h5>Description</h5>
 					<textarea rows="7" input id="descriptionOfIssue" placeholder="Description">${issueView.description}</textarea>
-					<h5>Attached</h5>
+					<c:if test="${not empty issueView.pathToFile}">
+						<h5>Attached</h5>
+						<img src="<c:url value="/${issueView.pathToFile}"/>" width="86%">
+					</c:if>
+					<br><br>
 				</div>
 					<div class="span4">
-				
 					<button class="btn btn-info">Add mark</button><br><br>
 					<button class="btn btn-info">Add to read list</button><br><br>
 					</div>
+					
 				</div>
-			<div class="rightControls">
-			<a class="btn btn-info input-xlarge" id="newIssue" href="${api_url}/analist/issue/new">Create new Issue</a>
-			</div>
 		</div>
 		</div>
 	</div>
 	<c:import url="/jsp/footer.jsp" />
 </body>
-<script type="text/javascript">
 
-</script>
 </html>

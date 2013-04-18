@@ -1,7 +1,7 @@
 package com.mycelium.nbt.model.enums;
 
 public enum RoleType {
-	Admin, Manager, Developer, Qa;
+	Admin, Manager, Developer, Qa, ROLE_USER;
 
 	private String _id;
 	private String _caption;
