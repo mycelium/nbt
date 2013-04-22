@@ -11,14 +11,11 @@
 <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <script type="text/javascript" src="<c:url value="/js/jquery.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/js/jquery-ui.js"/>"></script>
-<script type="text/javascript"
-	src="<c:url value="/js/bootstrap.min.js"/>"></script>
-<link type="text/css" rel="stylesheet" media="all"
-	href="<c:url value="/css/jquery-ui.css"/>" />
-<link type="text/css" rel="stylesheet" media="all"
-	href="<c:url value="/css/style.css"/>" />
-<link type="text/css" rel="stylesheet" media="all"
-	href="<c:url value="/css/bootstrap.min.css"/>" />
+<script type="text/javascript"	src="<c:url value="/js/bootstrap.min.js"/>"></script>
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/jquery-ui.css"/>" />
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/style.css"/>" />
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/button.css"/>" />
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/bootstrap.min.css"/>" />
 
 <title>Analyst interface</title>
 </head>
@@ -38,7 +35,7 @@
 								<option value="${cr.id}">${cr.caption}</option>
 							</c:forEach>
 						</select>
-						<a href="javascript:editCr()" class="btn btn-info">Edit CR</a>
+						<a href="javascript:editCr()" class="btn" id="editCr">Edit CR</a>
 					</div>
 
 					<div class="span4">
@@ -50,33 +47,29 @@
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane active" id="tab1">
-									<textarea disabled id="redex1"  style="width: 94%; height:97px;resize: none;">In</textarea>
+									<textarea disabled id="redex1"  >In</textarea>
 								</div>
 								<div class="tab-pane" id="tab2">
-									<textarea disabled id="redex2" style="width: 94%; height:97px;resize: none;">Out</textarea>
+									<textarea disabled id="redex2" >Out</textarea>
 								</div>
 							</div>
 						</div>
 						
-						<button class="btn btn-info"  onclick="javascript:addIssuesToCr()">Add issue to CR </button>
+						<button class="btn"  onclick="javascript:addIssuesToCr()" id="addIssueToCrbut">Add issue to CR </button>
 					</div>
 
 					<div class="span4">
-
-						
-						<a class="btn " id="newIssue" href="${api_url}/issue/new">Create new Issue</a>
+						<a class="btn " id="newIssue" href="${api_url}/issue/new" >Create new Issue</a>
 							<table class="table table-condensed">
 								<tr>
-									<td>New issue # </td>
+									<td>New issues: ${countNewIssues}  </td>
 								</tr>							
 								<tr>
-									<td>Not connected issue #</td>
+									<td>Not connected issues: ${countNotLinkedIssues} </td>
 								</tr>
 							</table>
 						<h5>Read and marked issues:</h5>
-						
-						<h5>Issues:</h5>
-						<select id="issueTable" multiple style="width: 100%">
+						<select id="issueTable" multiple>
 							<c:forEach items="${issues}" var="issue">
 							<c:if test="${empty issue.attachedCRs}">
 								<c:if test="${issue.marker==''}"><option class="issues" id="issue_${issue.id}" value="${issue.id}" style="font-weight:bold">${issue.caption}</option></c:if>
@@ -91,22 +84,14 @@
 						<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
-						<button class="btn btn-info"value="green" style="color:black;background:green" onclick="javascript:addMark(this)">Green</button>
-						<button class="btn btn-info"value="yellow" style="color:black;background:yellow" onclick="javascript:addMark(this)">Yellow</button>
-						<button class="btn btn-info"value="red" style="color:black;background:red" onclick="javascript:addMark(this)">Red</button>
-						
+						<button class="btn" value="green" id="greenbut" onclick="javascript:addMark(this)">Green</button>
+						<button class="btn" value="yellow" id="yellowbut" onclick="javascript:addMark(this)">Yellow</button>
+						<button class="btn" value="red" id="redbut" onclick="javascript:addMark(this)">Red</button>		
 						</ul>
-						
-						
 					</div>
-					<button class="btn"value="" onclick="javascript:addMark(this)">Unmark</button>
-					<a href="javascript:editIssue()" class="btn btn-info">Edit Issue</a>
-						<br><br>
-						<button class="btn btn-info">Delete marked</button>
-						<br> <br>
-						<button class="btn btn-info" id="delAll">Delete all with connections</button>
-
-					</div>
+					<button class="btn" value="" onclick="javascript:addMark(this)">Unmark</button>
+					<a href="javascript:editIssue()" class="btn">Edit Issue</a>
+						</div>
 				</div>
 			</div>
 						
@@ -126,6 +111,8 @@ function editIssue()
 }
 
 function addMark(elem){
+	
+	alert(window.location.href);
 var dat = JSON.stringify({
     idList : $('#issueTable').val(),
 	marker : elem.value
@@ -140,8 +127,7 @@ data:dat
 var issues=$('#issueTable').val(); 
 for(var i=0;i<issues.length;++i)
 {
-		$('#issue_'+issues[i]).css('background',elem.value);
-		
+	$('#issue_'+issues[i]).css('background',elem.value);	
 }
 });
 }

@@ -13,7 +13,7 @@
 <script type="text/javascript" src="<c:url value="/js/jquery-ui.js"/>"></script>
 <script type="text/javascript"	src="<c:url value="/js/bootstrap.min.js"/>"></script>
 <script type="text/javascript"	src="<c:url value="/js/bootstrap-datepicker.js"/>"></script>
-
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/button.css"/>" />
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/jquery-ui.css"/>" />
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/style.css"/>" />
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/bootstrap.min.css"/>" />
@@ -28,24 +28,35 @@
 				<c:import url="/jsp/header.jsp" />
 				<div class="span10">
 					<h3>Issue view</h3>
-				<br>
 				<div class="span6">
-					<h4>Issue ${issueView.caption}</h4>
-					  <br>
-					
+					<h4>Issue ${issueView.caption}</h4>		
+					<input type="hidden" id="issId"value="${issueView.id}">
 					<h5>Title</h5>
 					<input type="text" placeholder="Title" value="${issueView.caption}"><br>
 					<h5>Description</h5>
 					<textarea rows="7" input id="descriptionOfIssue" placeholder="Description">${issueView.description}</textarea>
-					<c:if test="${not empty issueView.pathToFile}">
+					<h5>Marker</h5>
+					<input id="markercol"type="text" value="${issueView.marker}" style="background:${issueView.marker}"><br>
+					<c:if test="${issueView.pathToFile!='img/issue/'}">
 						<h5>Attached</h5>
 						<img src="<c:url value="/${issueView.pathToFile}"/>" width="86%">
 					</c:if>
 					<br><br>
 				</div>
 					<div class="span4">
-					<button class="btn btn-info">Add mark</button><br><br>
-					<button class="btn btn-info">Add to read list</button><br><br>
+					<div class="btn-group">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" data-target="#">
+						Mark
+						<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+						<button class="btn" value="green" id="greenbut" onclick="javascript:addMark(this)">Green</button>
+						<button class="btn" value="yellow" id="yellowbut" onclick="javascript:addMark(this)">Yellow</button>
+						<button class="btn" value="red" id="redbut" onclick="javascript:addMark(this)">Red</button>		
+						</ul>
+					</div>
+					<button class="btn" value="" onclick="javascript:addMark(this)">Unmark</button><br><br>
+					<button class="btn">Add to read list</button><br><br>
 					</div>
 					
 				</div>
@@ -54,5 +65,23 @@
 	</div>
 	<c:import url="/jsp/footer.jsp" />
 </body>
-
+<script type="text/javascript">
+function addMark(elem){
+var crId=[];
+crId.push($('#issId').val());
+var dat = JSON.stringify({
+    idList : crId,
+	marker : elem.value
+});
+$.ajax({
+type:"POST",
+contentType:"application/json",
+dataType:"json",
+url: "/nbt/site/analist/mark",
+data:dat
+}).done(function() { 
+	$('#markercol').css('background',elem.value);	
+});
+}
+</script>
 </html>

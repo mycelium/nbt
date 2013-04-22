@@ -13,7 +13,7 @@
 <script type="text/javascript" src="<c:url value="/js/jquery-ui.js"/>"></script>
 <script type="text/javascript"	src="<c:url value="/js/bootstrap.min.js"/>"></script>
 <script type="text/javascript"	src="<c:url value="/js/bootstrap-datepicker.js"/>"></script>
-
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/button.css"/>" />
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/jquery-ui.css"/>" />
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/style.css"/>" />
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/bootstrap.min.css"/>" />
@@ -49,7 +49,7 @@
 						</c:forEach>	 
 					</select>	
 								
-					<button class="btn" type="submit">Remove task</button>
+					<button class="btn" type="submit" id="removetaskbut">Remove task</button>
 					</form>
 					<h5>All tasks</h5>
 					<select id="allIssues"  style="width: 100%" multiple>
@@ -57,9 +57,7 @@
 								<option value="${task.id}">${task.caption}</option>
 							</c:forEach>
 						</select>					
-					<div class="btn-group" >
-					  <button class="btn btn-info" onclick="addTaskToCr()">Add Task</button>
-					 </div>
+					<button class="btn" onclick="addTaskToCr()" id="addtaskbut">Add Task</button>
 					</div></div>
 					<div class="span2 offset8">
 					<br><br><br><br>

@@ -1,0 +1,37 @@
+			
+#editCr,#crviewbut
+{
+	width: 76%
+}
+#redex1, #redex2, #out
+{
+width: 94%; height:99px;resize: none;	
+}
+#addIssueToCrbut,#issueTable,#assIssues,#allIssues,#removeissbut, #addtasktocrbut, #taskTable,#removetaskbut,#addtaskbut{
+width: 100%
+}
+#newIssue, #newTask, #edittaskbut{
+width: 90%
+}
+#greenbut
+{
+color:black;background:green
+}
+#yellowbut
+{
+color:black;background:yellow
+}
+#redbut
+{
+color:black;background:red
+}
+#srcimg{
+width: 86%
+}
+
+#addisssbut{
+width: 382%
+}
+#markercol{
+background:
+}

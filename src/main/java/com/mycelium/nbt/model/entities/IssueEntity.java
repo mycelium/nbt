@@ -2,15 +2,16 @@ package com.mycelium.nbt.model.entities;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class IssueEntity extends Entity {
 	private String _id;
 	private String _caption;
 	private String _reporter;
-	private ArrayList<String> _assignees;
-	private ArrayList<String> _watchers;
-	private ArrayList<String> _subtasks;
-	private ArrayList<String> _components;
+	private List<String> _assignees;
+	private List<String> _watchers;
+	//private List<String> _subtasks;
+	//private List<String> _components;
 	private String _typeIssue;
 	private String _statusIssue;
 	private String _priorityIssue;
@@ -20,15 +21,15 @@ public class IssueEntity extends Entity {
 	private String _description;
 	private String _marker;
 	private String _pathToFile;
-	private ArrayList<String> _attachedCRs;
+	private List<String> _attachedCRs;
 	
 	public IssueEntity() {
 		_caption = "";
 		_reporter = "";
 		_assignees = new ArrayList<String>();
 		_watchers = new ArrayList<String>();
-		_subtasks = new ArrayList<String>();
-		_components = new ArrayList<String>();
+		//_subtasks = new ArrayList<String>();
+		//_components = new ArrayList<String>();
 		_typeIssue = "";
 		_statusIssue = "";
 		_priorityIssue = "";
@@ -41,22 +42,22 @@ public class IssueEntity extends Entity {
 	}
 
 	public IssueEntity(String caption, String reporter,
-			ArrayList<String> assignees, ArrayList<String> watchers,
-			ArrayList<String> subtasks, ArrayList<String> components,
+			List<String> assignees, List<String> watchers,
+			/*List<String> subtasks, List<String> components,*/
 			String typeIssue, String statusIssue, String priorityIssue,
-			Date creationDate, Date modificationDate, String environment,
+			Date creationDate, /*Date modificationDate, */String environment,
 			String description, String pathToFile) {
 		_caption = caption;
 		_reporter = reporter;
 		_assignees = assignees;
 		_watchers = watchers;
-		_subtasks = subtasks;
-		_components = components;
+		//_subtasks = subtasks;
+		//_components = components;
 		_typeIssue = typeIssue;
 		_statusIssue = statusIssue;
 		_priorityIssue = priorityIssue;
 		_creationDate = creationDate;
-		_modificationDate = modificationDate;
+		//_modificationDate = new Date();
 		_environment = environment;
 		_description = description;
 		_marker="";
@@ -89,7 +90,7 @@ public class IssueEntity extends Entity {
 		_reporter = reporter;
 	}
 
-	public ArrayList<String> getAssignees() {
+	public List<String> getAssignees() {
 		return _assignees;
 	}
 
@@ -97,7 +98,7 @@ public class IssueEntity extends Entity {
 		_assignees = assignees;
 	}
 
-	public ArrayList<String> getWatchers() {
+	public List<String> getWatchers() {
 		return _watchers;
 	}
 
@@ -105,7 +106,7 @@ public class IssueEntity extends Entity {
 		_watchers = watchers;
 	}
 
-	public ArrayList<String> getSubtasks() {
+/*	public List<String> getSubtasks() {
 		return _subtasks;
 	}
 
@@ -113,13 +114,13 @@ public class IssueEntity extends Entity {
 		_subtasks = subtasks;
 	}
 
-	public ArrayList<String> getComponents() {
+	public List<String> getComponents() {
 		return _components;
 	}
 
 	public void setComponents(ArrayList<String> components) {
 		_components = components;
-	}
+	}*/
 
 	public String getTypeIssue() {
 		return _typeIssue;
@@ -194,7 +195,7 @@ public class IssueEntity extends Entity {
 		return _pathToFile;
 	}
 	
-	public ArrayList<String> getAttachedCRs() {
+	public List<String> getAttachedCRs() {
 		return _attachedCRs;
 	}
 

@@ -25,20 +25,11 @@
             <div class="row-fluid">
 			<c:import url="/jsp/header.jsp" />
                 <div class="span5">
-                    <h3>Feedback:</h3><br>
-                            <h5>What`s a problem? </h5>
-							<input id="question" type="text" class="input-xlarge" placeholder="Your question">
-                            <textarea rows="3" input id="showMeArea"  type="text" class="input-xlarge">
-                            </textarea>
-                            <input id="showMessage" type="button" class="btn btn-info input-xlarge" value="Show Message!">
-                </div>
-                <script>
-                    $('#showMessage').on('click', function(){
-                    $('#showMeArea').val('The answer to Ur question <'+question.value+ '> will be sent by email!');});
-                </script>
+                   <h4>FAQ</h4>
             </div>
         </div>
     </div>
-
+    </div>
+	<c:import url="/jsp/footer.jsp" />
 </body>
 </html>

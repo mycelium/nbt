@@ -16,6 +16,7 @@
 
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/jquery-ui.css"/>" />
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/style.css"/>" />
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/button.css"/>" />
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/bootstrap.min.css"/>" />
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/datepicker.css"/>" />
 
@@ -30,11 +31,6 @@
 					<h3>CR view</h3>
 				</div><br>
 				<div class="span5">
-					<div class="btn-group" >
-					  <button class="btn">prev</button>
-					  <button class="btn">cr# ${crView.id}</button>
-					  <button class="btn">next</button>
-					</div>	  
 					<form action="${api_url}/delIssueFromCr" method="get">
 					<input id="crId" name="crId" type="hidden"  value="${crView.id}">
 					
@@ -43,40 +39,38 @@
 					<br>
 					<h5>Description</h5>
 					<textarea rows="7" input id="descriptionOfIssue" placeholder="Description" >${crView.description}</textarea>
+					<c:if test="${crView.pathToFile!='img/cr/'}">
 					<h5>Attached</h5>
-					<img src="<c:url value="/${crView.pathToFile}"/>" width="86%">			
+					<img id="srcimg" src="<c:url value="/${crView.pathToFile}"/>">		
+					</c:if>	
 				</div>
 				<div class="span5">
 					<h5>Assigned issues</h5>
-					<select multiple id="assIssues"  name="assIssues" style="width: 100%">
+					<select multiple id="assIssues"  name="assIssues">
 						<c:forEach items="${crView.issueIdList}" var="cr">
 								<option value="${cr}">${cr}</option>
 						</c:forEach>	 
 					</select>	
 								
-					<button class="btn" type="submit">Remove issue</button>
+					<button class="btn" type="submit" id="removeissbut">Remove issue</button>
 					</form>
 					<h5>All issues</h5>
-					<select id="allIssues"  style="width: 100%" multiple>
+					<select id="allIssues" multiple>
 							<c:forEach items="${issues}" var="issue">
 								<option value="${issue.id}">${issue.id}</option>
 							</c:forEach>
 						</select>					
 					<div class="btn-group" >
-					  <button class="btn btn-info" onclick="addIssuesToCr()">Add Issues</button>
+					  <button class="btn" onclick="addIssuesToCr()" id="addisssbut">Add Issues</button>
 					 </div>
 					</div></div>
-					<div class="span2 offset8">
-					<br><br><br><br>
-					<button class="btn btn-info">Select baseline</button><br><br>
-					<button class="btn btn-info">Create baseline</button>
-					</div>
-					
 		</div>
 	</div>
 	<c:import url="/jsp/footer.jsp" />
 </body>
+
 <script type="text/javascript">
+
 function addIssuesToCr()
 {
 var crId=[];

@@ -52,27 +52,14 @@
 					</c:forEach>
 					</select>
 					<h5>Responsible persons</h5>
-					<select id="issueWatchers" name="issueWatchers">
+					<select id="issueWatchers" name="issueWatchers" multiple>
 					<c:forEach items="${users}" var="user">
 						<option>${user.login}</option>
 					</c:forEach>
 					</select>
 					
-					<h5>Subtasks</h5>
-					<select id="issueSubtasks" name="issueSubtasks">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-					</select>
 					</div>
-					<div class="span5">
-					<h5>Components</h5>
-					<select id="issueComponents" name="issueComponents">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-					</select>
-					
+					<div class="span5">			
 					<h5>Type</h5>
 					<select id="issueType" name="issueType">
 						<option>Business requirement</option>
@@ -95,16 +82,14 @@
 					</select>
 					<h5>Creation date</h5>
 					<input type="text" class="span4" id="issueCreationDate" name="issueCreationDate">
-					<h5>Modification date</h5>
-					<input type="text" class="span4" id="issueModificationDate" name="issueModificationDate">
 					<h5>Environment</h5>
-					<input id="issueEnvironment" name="issueEnvironment" type="text" placeholder="issueEnvironment">	
+					<input id="issueEnvironment" name="issueEnvironment" type="text">	
 					<h5>Attach</h5>
 					<input type="file" name="file">
 				</div>
 			</div>
 			<div class="rightControls">
-			<input id="but1" type="submit" class="btn btn-info">
+			<input id="but1" type="submit" class="btn" value="Create">
 			</div>
 		</div>
 	</div>

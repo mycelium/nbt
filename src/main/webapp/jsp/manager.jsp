@@ -11,19 +11,15 @@
 <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <script type="text/javascript" src="<c:url value="/js/jquery.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/js/jquery-ui.js"/>"></script>
-<script type="text/javascript"
-	src="<c:url value="/js/bootstrap.min.js"/>"></script>
-<link type="text/css" rel="stylesheet" media="all"
-	href="<c:url value="/css/jquery-ui.css"/>" />
-<link type="text/css" rel="stylesheet" media="all"
-	href="<c:url value="/css/style.css"/>" />
-<link type="text/css" rel="stylesheet" media="all"
-	href="<c:url value="/css/bootstrap.min.css"/>" />
+<script type="text/javascript"	src="<c:url value="/js/bootstrap.min.js"/>"></script>
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/jquery-ui.css"/>" />
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/style.css"/>" />
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/bootstrap.min.css"/>" />
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/button.css"/>" />
 
 <title>Manager interface</title>
 </head>
 <body>
-
 	<div class="container content">
 		<div class="container-fluid">
 			<div class="row-fluid">
@@ -38,25 +34,25 @@
 								<option value="${cr.id}">${cr.caption}</option>
 							</c:forEach>
 						</select>
-						<a href="javascript:crView()" class="btn btn-info">CR view</a>
+						<a href="javascript:crView()" class="btn" id="crviewbut">CR view</a>
 						
 					</div>
 					
 					<div class="span4">
 					<h5>Out things:</h5>
-					<textarea id="out" disabled style="width: 94%; height:97px;resize: none;">Out</textarea>
-					<button class="btn btn-info"  onclick="javascript:addTaskToCr()">Add task to CR </button>
+					<textarea id="out" disabled>Out</textarea>
+					<button class="btn" id="addtasktocrbut"  onclick="javascript:addTaskToCr()">Add task to CR </button>
 					</div>
 					
 					<div class="span4">
 					<a class="btn " id="newTask" href="${api_url}/newTask">Create new Task</a>	
 						<h5>Tasks:</h5>
-						<select id="taskTable" multiple style="width: 100%">
+						<select id="taskTable" multiple >
 							<c:forEach items="${tasks}" var="task">
 								<option id="task_${task.id}" value="${task.id}">${task.caption}</option>
 							</c:forEach>
 						</select>
-						<a href="javascript:editTask()" class="btn btn-info">Edit task</a>
+						<a href="javascript:editTask()" id="edittaskbut"class="btn">Edit task</a>
 					</div>
 				</div>
 			</div>

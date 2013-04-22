@@ -2,7 +2,6 @@ package com.mycelium.nbt.controllers;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.web.PageableDefaults;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,13 +12,10 @@ import com.mycelium.nbt.model.dao.ChangeRequestDao;
 import com.mycelium.nbt.model.dao.IssueDao;
 import com.mycelium.nbt.model.entities.ChangeRequestEntity;
 import com.mycelium.nbt.model.entities.IssueEntity;
-import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.text.ParseException;
-import com.mycelium.nbt.controllers.UserController;
 import com.mycelium.nbt.model.dao.UserDao;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -27,14 +23,7 @@ import com.mycelium.nbt.controllers.MarkIssues;
 import com.mycelium.nbt.controllers.IssuesAndCRs;
 import org.springframework.web.bind.annotation.ResponseBody; 
 import org.springframework.web.bind.annotation.RequestBody; 
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ModelAttribute; 
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.ui.Model;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.SimpleFormController;
-import java.io.IOException;
 import java.io.File;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
@@ -55,7 +44,9 @@ public class AnalistController {
 	public ModelAndView getAnalistPage() {
 		ModelAndView mav = new ModelAndView("analist");
 		mav.addObject("crs", _crDao.findAll());		
-		mav.addObject("issues", sortIssues(_issueDao.findAll()));		
+		mav.addObject("issues", sortIssues(_issueDao.findAll()));
+		mav.addObject("countNewIssues", getCountNewIssues(_issueDao.findAll()));
+		mav.addObject("countNotLinkedIssues", getCountNotLinkedIssues(_issueDao.findAll()));
 		return mav;
 	}
 	@RequestMapping(value = "/issue/new", method = RequestMethod.GET)
@@ -99,24 +90,27 @@ public class AnalistController {
 		String description = request.getParameter("crDescription");
 		String priority = request.getParameter("crPriority");
 		SimpleDateFormat sdf=new SimpleDateFormat("dd-mm-yyyy"); 
+		String hours=request.getParameter("crHours");	
+		List <String>watchers=new ArrayList<String>();
+		if(request.getParameterValues("crWatchers")!=null)
+			watchers=Arrays.asList(request.getParameterValues("crWatchers"));
+		List <String>issuesIdList=new ArrayList<String>();
+		if(request.getParameterValues("issuesId")!=null)
+			issuesIdList=Arrays.asList(request.getParameterValues("issuesId"));		
 		Date dateOfFinish;
 		Date dateOfStart;
-		String hours=request.getParameter("crHours");
-		List <String>watchers=new LinkedList<String>();
-		for(String loginWatcher:request.getParameterValues("crWatchers"))
-		watchers.add(_userDao.findByLogin(loginWatcher).getId());
-		List <String>idTasks=new LinkedList<String>();		
-		if(request.getParameterValues("crIdTask")!=null)
-			for(String idTask:request.getParameterValues("crIdTask"))
-				idTasks.add(idTask);
-				
+		if(request.getParameter("crDateOfFinish")!=null && !request.getParameter("crDateOfFinish").equals(""))
+			dateOfFinish=sdf.parse(request.getParameter("crDateOfFinish"));
+		else dateOfFinish=new Date();
+		if(request.getParameter("crDateOfStart")!=null && !request.getParameter("crDateOfStart").equals(""))
+			dateOfStart=sdf.parse(request.getParameter("crDateOfStart"));
+		else dateOfStart=new Date();
+		ChangeRequestEntity newCr;
 		if (file != null && file.length > 0) 
 			{
-				
-					dateOfFinish=sdf.parse(request.getParameter("crDateOfFinish"));
-					dateOfStart=sdf.parse(request.getParameter("crDateOfStart"));
-					ChangeRequestEntity newCr = new ChangeRequestEntity( caption, author,parentId,description,priority,dateOfStart,dateOfFinish,hours,watchers,idTasks,"img/cr/"+ file[0].getOriginalFilename());
-					_crDao.addChangeRequest(newCr);
+					 newCr = new ChangeRequestEntity( caption, author,parentId,description,
+							 priority,dateOfStart,dateOfFinish,hours,watchers,issuesIdList,"img/cr/"+ file[0].getOriginalFilename());
+					
 					for (CommonsMultipartFile aFile : file){
 					 
 					System.out.println("Saving file: " + aFile.getOriginalFilename());
@@ -126,6 +120,9 @@ public class AnalistController {
 					}
 				} 			
 			}
+		else  newCr = new ChangeRequestEntity( caption, author,parentId,description,
+												priority,dateOfStart,dateOfFinish,hours,watchers,issuesIdList,"");
+		_crDao.addChangeRequest(newCr);
         return "redirect:/site/analist";
     }
 		//Issue add
@@ -135,32 +132,41 @@ public class AnalistController {
 	{
 		String caption=request.getParameter("issueCaption");
 		String reporter=request.getParameter("issueReporter");
-		
-		ArrayList<String>assignees=new ArrayList<String>(Arrays.asList(request.getParameterValues("issueAssignees")));
-		ArrayList<String> watchers=new ArrayList<String>(Arrays.asList(request.getParameterValues("issueWatchers")));
-		ArrayList<String> subtasks=new ArrayList<String>(Arrays.asList(request.getParameterValues("issueSubtasks")));
-		ArrayList<String> components=new ArrayList<String>(Arrays.asList(request.getParameterValues("issueComponents")));
+		List<String>assignees=new ArrayList<String>();
+		if(request.getParameterValues("issueAssignees")!=null)
+			assignees=Arrays.asList(request.getParameterValues("issueAssignees"));
+		List<String> watchers=new ArrayList<String>();
+		if(request.getParameterValues("issueWatchers")!=null)
+			watchers=Arrays.asList(request.getParameterValues("issueWatchers"));
+		/*List<String> subtasks=new ArrayList<String>();
+		if(request.getParameterValues("issueSubtasks")!=null)
+			subtasks=Arrays.asList(request.getParameterValues("issueSubtasks"));
+		List<String> components=new ArrayList<String>();
+		if(request.getParameterValues("issueComponents")!=null)
+			components=Arrays.asList(request.getParameterValues("issueComponents"));*/
 		String typeIssue=request.getParameter("issueType");
 		String statusIssue=request.getParameter("issueStatus");
 		String priorityIssue=request.getParameter("issuePriority");	
 		Date creationDate;
-		Date modificationDate;
+		//Date modificationDate;
 		SimpleDateFormat sdf=new SimpleDateFormat("dd-mm-yyyy"); 
-		
+		if(request.getParameter("issueCreationDate")!=null && !request.getParameter("issueCreationDate").equals(""))
+			creationDate=sdf.parse(request.getParameter("issueCreationDate"));
+		else creationDate=new Date();
+
 		String environment=request.getParameter("issueEnvironment");
 		String description=request.getParameter("issueDescription");
-		
+		IssueEntity newIssue;
+		_logger.warn("File length"+file.length);
 		if (file != null && file.length > 0) 
 		{
-		creationDate=sdf.parse(request.getParameter("issueCreationDate"));
-		modificationDate=sdf.parse(request.getParameter("issueModificationDate"));
-		IssueEntity newIssue = new IssueEntity(caption,reporter,
-											assignees,watchers,
-											subtasks,components,
+
+		 newIssue = new IssueEntity(caption,reporter,
+											assignees,watchers,										
 											typeIssue,statusIssue,
-											priorityIssue,creationDate,modificationDate,
+											priorityIssue,creationDate,
 											environment,description,"img/issue/"+ file[0].getOriginalFilename());
-        _issueDao.addIssue(newIssue);
+        
 		for (CommonsMultipartFile aFile : file){
 					 
 					System.out.println("Saving file: " + aFile.getOriginalFilename());
@@ -170,17 +176,21 @@ public class AnalistController {
 					}
 				}
 		}
+		else newIssue = new IssueEntity(caption,reporter,
+				assignees,watchers,
+				typeIssue,statusIssue,
+				priorityIssue,creationDate,
+				environment,description,"");
+		_issueDao.addIssue(newIssue);
         return "redirect:/site/analist";
     }
 	
 	
 @RequestMapping(value = "/mark", method = RequestMethod.POST, headers = {"content-type=application/json"})  
-//@ResponseStatus(HttpStatus.OK)	
     public String markIssue(@RequestBody MarkIssues markIssues) {
 
 		String[] idOfIssues=markIssues.getIdList();
 		String mymarker=markIssues.getMarker();
-		_logger.warn(mymarker);
 		for(String idOfIssue:idOfIssues)
 			{
 				_issueDao.updateMarker(_issueDao.findOne(idOfIssue).getId(),mymarker);
@@ -195,14 +205,12 @@ public class AnalistController {
 	String[] idOfIssues=iac.getIdIssueList();
 	for(String idOfCR:idOfCRs)
 	{
-		_logger.warn("crid="+idOfCR);
 		for(String id:idOfIssues)
 		{
-			if(!_crDao.findOne(idOfCR).getTaskIdList().contains(id))
+			if(!_crDao.findOne(idOfCR).getIssueIdList().contains(id))
 				_crDao.addIssue(idOfCR,id);  
-			if(!_issueDao.findOne(id).getAssignees().contains(idOfCR))
+			if(!_issueDao.findOne(id).getAttachedCRs().contains(idOfCR))
 				_issueDao.addCR(id,idOfCR);
-			_logger.warn("issueid="+id);
 		}				
 	}
         return "redirect:/site/analist";
@@ -213,7 +221,6 @@ public class AnalistController {
 			String idOfCR=request.getParameter("crId");	
 			if(request.getParameterValues("assIssues")!=null)
 			{
-			_logger.warn("lala");
 				_crDao.delIssue(idOfCR,request.getParameterValues("assIssues"));
 				for(String idOfIssue:request.getParameterValues("assIssues") )
 				_issueDao.delCR(idOfIssue,idOfCR);
@@ -242,13 +249,13 @@ public class AnalistController {
 	
 	public ArrayList<IssueEntity> sortIssues(List<IssueEntity> issues)
 	{
-		ArrayList<IssueEntity> sortIssues=new ArrayList(issues);
+		ArrayList<IssueEntity> sortIssues=new ArrayList<IssueEntity>(issues);
 		ArrayList<HashMap<Integer,IssueEntity>> tmpIssues=new ArrayList<HashMap<Integer,IssueEntity>>();
 		for(int i=0;i<sortIssues.size();++i)
 		{
 			if(!sortIssues.get(i).getMarker().equals(""))
 			{
-				HashMap hashMap=new HashMap<Integer,IssueEntity>();
+				HashMap<Integer,IssueEntity> hashMap=new HashMap<Integer,IssueEntity>();
 				hashMap.put(i,sortIssues.get(i));
 				tmpIssues.add(hashMap);	
 			}
@@ -261,6 +268,25 @@ public class AnalistController {
 		}
 		return sortIssues;
 	}
-
+	public int getCountNewIssues(List<IssueEntity> issues)
+	{
+		int count=0;
+		for(IssueEntity issue:issues)
+		{
+			if(issue.getMarker().equals(""))
+				++count;
+		}
+		return count;
+	}
+	public int getCountNotLinkedIssues(List<IssueEntity> issues)
+	{
+		int count=0;
+		for(IssueEntity issue:issues)
+		{
+			if(issue.getAttachedCRs().isEmpty())
+				++count;
+		}
+		return count;
+	}
 	
 }

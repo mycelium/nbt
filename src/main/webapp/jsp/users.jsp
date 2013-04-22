@@ -53,7 +53,7 @@
 					</table>
 				</div>
 			  <div class="rightControls">
-			  <a href="javascript:createNew()" class="btn btn-info input-xlarge">Add user</a>
+			  <a href="javascript:createNew()" class="btn input-xlarge">Add user</a>
 			  </div>
 						
 			</div>

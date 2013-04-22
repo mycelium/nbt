@@ -33,7 +33,7 @@
 			<div class="row-fluid">
 				<c:import url="/jsp/header.jsp" />
 				<div class="span10">
-				<form id="newCr" name="newCr" action="${api_url}/analist/cr/add" method="POST" enctype="multipart/form-data">
+				<form id="newCr" name="newCr" action="${api_url}/analist/cr/add" method="POST" enctype="multipart/form-data" onsubmit="return validate()">
 					<h3>Create New CR</h3>
 				</div><br>
 				<div class="span5">
@@ -71,9 +71,9 @@
 
 					</select>
 					<h5>Issue</h5>
-					<select id="crIdTask" name="crIdTask" multiple>
+					<select id="issuesId" name="issuesId" multiple>
 					<c:forEach items="${issues}" var="issue">
-					<option  value="${issue.id}">${issue.caption}</option>
+					<option value="${issue.id}">${issue.caption}</option>
 					</c:forEach>
 					</select>
 					<h5>Attach</h5>
@@ -81,7 +81,7 @@
 				</div>
 			</div>
 			<div class="rightControls">
-			<input id="but1" type="submit" class="btn btn-info">
+			<input id="but1" type="submit" class="btn" value="Create">
 			</div>
 		</div>
 	</div>
@@ -100,5 +100,14 @@
         	weekStart:1
         });
     });
+	
+	function validate(){
+		var start=document.getElementById("crDateOfStart");
+		if (start.value==null) 
+		{ 
+		alert("Enter valid operands !");
+		return false;
+		}
+		}
 </script>
 </html>

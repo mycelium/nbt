@@ -11,19 +11,13 @@
 <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <script type="text/javascript" src="<c:url value="/js/jquery.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/js/jquery-ui.js"/>"></script>
-<script type="text/javascript"
-	src="<c:url value="/js/bootstrap.min.js"/>"></script>
-<script type="text/javascript"
-	src="<c:url value="/js/bootstrap-datepicker.js"/>"></script>
+<script type="text/javascript"	src="<c:url value="/js/bootstrap.min.js"/>"></script>
+<script type="text/javascript"	src="<c:url value="/js/bootstrap-datepicker.js"/>"></script>
 
-<link type="text/css" rel="stylesheet" media="all"
-	href="<c:url value="/css/jquery-ui.css"/>" />
-<link type="text/css" rel="stylesheet" media="all"
-	href="<c:url value="/css/style.css"/>" />
-<link type="text/css" rel="stylesheet" media="all"
-	href="<c:url value="/css/bootstrap.min.css"/>" />
-<link type="text/css" rel="stylesheet" media="all"
-	href="<c:url value="/css/datepicker.css"/>" />
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/jquery-ui.css"/>" />
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/style.css"/>" />
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/bootstrap.min.css"/>" />
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/datepicker.css"/>" />
 
 <title>Task view</title>
 </head>
