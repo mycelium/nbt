@@ -2,6 +2,7 @@ package com.mycelium.nbt.model.dao;
 
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class TestRoleDao {
 	private RoleDao _roleDao;
 	
 	@Test
-	public void testRoleDao() {
+	public void testFindAll() {
 		System.out.println();
 		List<RoleEntity> roles = _roleDao.findAll();
 		System.out.println("Amount of roles in DB = " + roles.size());
@@ -30,7 +31,18 @@ public class TestRoleDao {
 				isDbAndEnumEquals = false;
 			}
 		}
-		assert isDbAndEnumEquals;
+		assertTrue(isDbAndEnumEquals);
+	}
+	
+	@Test
+	public void testFindByName() {
+		System.out.println();
+		RoleEntity role = _roleDao.findByName(RoleType.Admin.getCaption());
+		System.out.println("Role info: " + role);
+		if(role == null ){
+			System.err.println("Role " + RoleType.Admin.getCaption() + " not found at type class!");
+		}
+		assertTrue(role != null);
 	}
 
 }
