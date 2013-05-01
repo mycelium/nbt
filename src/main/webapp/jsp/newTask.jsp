@@ -32,7 +32,7 @@
 				</div><br>
 				<div class="span5">
 					<h5>Title</h5>
-					<input id="taskCaption" name="taskCaption" type="text" placeholder="Title">		
+					<input id="taskCaption" name="taskCaption" type="text" placeholder="Title" required> 		
 					<br>
 					<h5>Description</h5>
 					<textarea rows="7" input id="taskDescription" name="taskDescription" placeholder="Description"></textarea>

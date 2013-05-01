@@ -31,8 +31,7 @@
 				</div><br>
 				<div class="span5">
 					<form action="${api_url}/delTaskFromCr" method="get">
-					<input id="crId" name="crId" type="hidden"  value="${crsView.id}">
-					
+					<input id="crId" name="crId" type="hidden"  value="${crsView.id}">		
 					<h5>Title</h5>
 					<input id="title" type="text" placeholder="Title" value="${crsView.caption}">
 					<br>
@@ -43,27 +42,22 @@
 				</div>
 				<div class="span5">
 					<h5>Assigned tasks</h5>
-					<select multiple id="assTasks"  name="assTasks" style="width: 100%">
+					<select multiple id="assTasks" class="width100" name="assTasks">
 						<c:forEach items="${crsView.taskIdList}" var="task">
 								<option value="${task}">${task}</option>
 						</c:forEach>	 
 					</select>	
 								
-					<button class="btn" type="submit" id="removetaskbut">Remove task</button>
+					<button class="btn width100" type="submit">Remove task</button>
 					</form>
 					<h5>All tasks</h5>
-					<select id="allIssues"  style="width: 100%" multiple>
+					<select id="allIssues" class="width100" multiple>
 							<c:forEach items="${taskss}" var="task">
 								<option value="${task.id}">${task.caption}</option>
 							</c:forEach>
 						</select>					
-					<button class="btn" onclick="addTaskToCr()" id="addtaskbut">Add Task</button>
-					</div></div>
-					<div class="span2 offset8">
-					<br><br><br><br>
-				
-					</div>
-					
+					<button class="btn width100" onclick="addTaskToCr()">Add Task</button>
+					</div></div>					
 		</div>
 	</div>
 	<c:import url="/jsp/footer.jsp" />
@@ -77,14 +71,13 @@ var dat = JSON.stringify({
     idCRList : crId,
 	idTaskList: $('#allIssues').val()
 });
-alert(dat);
 $.ajax({
 type:"POST",
 contentType:"application/json",
 dataType:"json",
-url:"http://localhost:8081/nbt/site/manager/addTaskToCr",
+url:"${api_url}/addTaskToCr",
 data:dat
-}).done(function() {alert("Task added to CR!");});
+}).done(function() {});
 }
 
 </script>

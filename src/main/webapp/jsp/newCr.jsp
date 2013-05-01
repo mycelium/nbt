@@ -38,7 +38,7 @@
 				</div><br>
 				<div class="span5">
 					<h5>Title</h5>
-					<input id="crCaption" name="crCaption" type="text" placeholder="Title">		
+					<input id="crCaption" name="crCaption" type="text" placeholder="Title" required>		
 					<br>
 					<h5>Author</h5>
 					<input id="crAuthor" name="crAuthor" type="text" placeholder="Author">		
