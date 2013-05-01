@@ -1,8 +1,6 @@
 package com.mycelium.nbt.model.dao;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
 
@@ -10,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.stereotype.Repository;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.stereotype.Repository;
+
 import com.mycelium.nbt.model.entities.ChangeRequestEntity;
-import com.mycelium.nbt.model.entities.UserEntity;
 
 @Repository
 public class ChangeRequestDao implements CollectionNames {
@@ -62,30 +60,30 @@ public class ChangeRequestDao implements CollectionNames {
 	{
 		Update param=new Update();
 		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(idOfCR)),
-			param.push("_issueIdList",idOfIssue),ChangeRequestEntity.class,COLLECTION_CRS);
+				param.push("_issueIdList",idOfIssue),ChangeRequestEntity.class,COLLECTION_CRS);
 	}
 	public void updateTaskIdList(String idOfCR,String idOfTask)
 	{
 		Update param=new Update();
 		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(idOfCR)),
-			param.push("_taskIdList",idOfTask),ChangeRequestEntity.class,COLLECTION_CRS);
+				param.push("_taskIdList",idOfTask),ChangeRequestEntity.class,COLLECTION_CRS);
 	}
-	
+
 	public void delIssue(String idOfCR,String[] idOfIssue) 
 	{
 		Update param=new Update();
 		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(idOfCR)),
-			param.pullAll("_issueIdList",idOfIssue),ChangeRequestEntity.class,COLLECTION_CRS);
+				param.pullAll("_issueIdList",idOfIssue),ChangeRequestEntity.class,COLLECTION_CRS);
 	}
-	
+
 	public void delTask(String idOfCR,String[] idOfTask) 
 	{
 		Update param=new Update();
 		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(idOfCR)),
-			param.pullAll("_taskIdList",idOfTask),ChangeRequestEntity.class,COLLECTION_CRS);
+				param.pullAll("_taskIdList",idOfTask),ChangeRequestEntity.class,COLLECTION_CRS);
 	}
-	
-	
+
+
 }
 
 
