@@ -9,31 +9,19 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mycelium.nbt.model.entities.RoleEntity;
-import com.mycelium.nbt.model.entities.UserEntity;
 import com.mycelium.nbt.model.enums.RoleType;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/test-config.xml" })
-public class DaoTest {
-	// @Resource(name = "userDao")
-	@Autowired
-	private UserDao _userDao;
+public class TestRoleDao {
 	@Autowired
 	private RoleDao _roleDao;
-
-	@Test
-	public void testUserDao() {
-		List<UserEntity> allUsers = _userDao.findAll();
-		System.out.println("users in DB = " + allUsers.size());
-		for (UserEntity user : allUsers) {
-			System.out.println(user);
-		}
-		assert allUsers.size() > 1;
-	}
-
+	
 	@Test
 	public void testRoleDao() {
+		System.out.println();
 		List<RoleEntity> roles = _roleDao.findAll();
+		System.out.println("Amount of roles in DB = " + roles.size());
 		boolean isDbAndEnumEquals = true;
 		for (RoleEntity role : roles) {
 			System.out.println(role);
@@ -44,4 +32,5 @@ public class DaoTest {
 		}
 		assert isDbAndEnumEquals;
 	}
+
 }
