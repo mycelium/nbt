@@ -66,7 +66,7 @@ public class TestUserDao {
 		UserEntity user = new UserEntity("testDelete", RoleType.ROLE_USER.getId(),
 				"test@test.com", "Test", "Unit", "pass01");
 		_userDao.addUser(user);
-		UserEntity deleteUser = _userDao.delete(user.getId());
+		UserEntity deleteUser = _userDao.deleteUser(user.getId());
 		System.out.println("User info before delete: " + deleteUser);
 		UserEntity findUser = _userDao.findOne(user.getId());
 		System.out.println("User info after delete: " + findUser);

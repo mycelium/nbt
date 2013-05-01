@@ -43,26 +43,26 @@ public class IssueDao implements CollectionNames {
 		return _mongoTemplate.findAll(IssueEntity.class, COLLECTION_ISSUES);
 	}
 
-	public void updateMarker(String id,String color)
+	public void updateMarker(String issueId,String color)
 	{
-		_logger.warn(findOne(id));
-		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(id)),
+		_logger.warn(findOne(issueId));
+		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(issueId)),
 				Update.update("_marker", color),IssueEntity.class,COLLECTION_ISSUES);
 	}
 
-	public void addCR(String id,String idOfCR)
+	public void addCRToIssue(String issueId,String crId)
 	{
 		Update param=new Update();
-		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(id)),
-				param.push("_attachedCRs",idOfCR),IssueEntity.class,COLLECTION_ISSUES);
+		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(issueId)),
+				param.push("_attachedCRs",crId),IssueEntity.class,COLLECTION_ISSUES);
 	}
 
 
-	public void delCR(String idOfIssue,String idOfCR) 
+	public void deleteCRFromIssue(String issueId,String crId) 
 	{
 		Update param=new Update();
-		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(idOfIssue)),
-				param.pull("_attachedCRs",idOfCR),IssueEntity.class,COLLECTION_ISSUES);
+		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(issueId)),
+				param.pull("_attachedCRs",crId),IssueEntity.class,COLLECTION_ISSUES);
 	}
 
 	public List<IssueEntity> findByPriority(String priorityId) {
@@ -78,7 +78,7 @@ public class IssueDao implements CollectionNames {
 		// TODO change query for searching by reporter email or login
 	}
 
-	public List<IssueEntity> findByAssignee(String assignee) {
+	public List<IssueEntity> findByAssignee(String assigneeId) {
 		// TODO
 		return null;
 	}

@@ -208,9 +208,9 @@ public class AnalistController {
 		for(String id:idOfIssues)
 		{
 			if(!_crDao.findOne(idOfCR).getIssueIdList().contains(id))
-				_crDao.addIssue(idOfCR,id);  
+				_crDao.addIssueToCR(idOfCR,id);  
 			if(!_issueDao.findOne(id).getAttachedCRs().contains(idOfCR))
-				_issueDao.addCR(id,idOfCR);
+				_issueDao.addCRToIssue(id,idOfCR);
 		}				
 	}
         return "redirect:/site/analist";
@@ -221,9 +221,9 @@ public class AnalistController {
 			String idOfCR=request.getParameter("crId");	
 			if(request.getParameterValues("assIssues")!=null)
 			{
-				_crDao.delIssue(idOfCR,request.getParameterValues("assIssues"));
+				_crDao.deleteIssueFromCR(idOfCR,request.getParameterValues("assIssues"));
 				for(String idOfIssue:request.getParameterValues("assIssues") )
-				_issueDao.delCR(idOfIssue,idOfCR);
+				_issueDao.deleteCRFromIssue(idOfIssue,idOfCR);
 			} 		
 				return "redirect:/site/analist";
 			}
