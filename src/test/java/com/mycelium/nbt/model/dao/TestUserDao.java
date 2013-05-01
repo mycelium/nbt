@@ -33,7 +33,7 @@ public class TestUserDao {
 	public void testFindOne() {
 		System.out.println();
 		List<UserEntity> allUsers = _userDao.findAll();
-		assert allUsers.size() > 1;
+		assertTrue(allUsers.size() > 1);
 		UserEntity user = _userDao.findOne(allUsers.get(0).getId());
 		System.out.println("User info: " + user);
 		assertTrue(user != null);

@@ -122,7 +122,7 @@ public class AnalistController {
 			}
 		else  newCr = new ChangeRequestEntity( caption, author,parentId,description,
 												priority,dateOfStart,dateOfFinish,hours,watchers,issuesIdList,"");
-		_crDao.addChangeRequest(newCr);
+		_crDao.addCR(newCr);
         return "redirect:/site/analist";
     }
 		//Issue add

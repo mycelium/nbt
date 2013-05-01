@@ -37,7 +37,7 @@ public class ChangeRequestDao implements CollectionNames {
 		_mongoTemplate.insert(initialCRs, COLLECTION_CRS);*/
 	}
 
-	public void addChangeRequest(ChangeRequestEntity cr) {
+	public void addCR(ChangeRequestEntity cr) {
 		_mongoTemplate.save(cr, COLLECTION_CRS);
 	}
 
@@ -56,12 +56,14 @@ public class ChangeRequestDao implements CollectionNames {
 				new Query(Criteria.where("_parentId").is(parentId)),
 				ChangeRequestEntity.class, COLLECTION_CRS);
 	}
+	
 	public void addIssueToCR(String crId,String issueId)
 	{
 		Update param=new Update();
 		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(crId)),
 				param.push("_issueIdList",issueId),ChangeRequestEntity.class,COLLECTION_CRS);
 	}
+	
 	public void addTaskToCR(String crId,String taskId)
 	{
 		Update param=new Update();
