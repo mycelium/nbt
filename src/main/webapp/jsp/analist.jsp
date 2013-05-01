@@ -30,12 +30,12 @@
 					<div class="span2" >
 						<br> <br> <a class="btn" id="newCr" href="${api_url}/cr/new">Create new CR</a> <br>
 						<h5>CRs:</h5>
-						<select id="crTable"  style="width: 100%"  multiple  onchange="getInfo()">
+						<select id="crTable" class="width100"  multiple  onchange="getInfo()">
 							<c:forEach items="${crs}" var="cr">
 								<option value="${cr.id}">${cr.caption}</option>
 							</c:forEach>
 						</select>
-						<a href="javascript:editCr()" class="btn" id="editCr">Edit CR</a>
+						<button onclick="editCr()" class="btn width100" id="editCr">Edit CR</button>
 					</div>
 
 					<div class="span4">
@@ -47,33 +47,30 @@
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane active" id="tab1">
-									<textarea disabled id="redex1"  >In</textarea>
+									<textarea class="mytext" disabled id="redex1"></textarea>
 								</div>
 								<div class="tab-pane" id="tab2">
-									<textarea disabled id="redex2" >Out</textarea>
+									<textarea class="mytext" disabled id="redex2"></textarea>
 								</div>
 							</div>
 						</div>
 						
-						<button class="btn"  onclick="javascript:addIssuesToCr()" id="addIssueToCrbut">Add issue to CR </button>
+						<button class="btn width100" onclick="addIssuesToCr()" id="addIssueToCrbut">Add issue to CR</button>
 					</div>
 
 					<div class="span4">
-						<a class="btn " id="newIssue" href="${api_url}/issue/new" >Create new Issue</a>
-							<table class="table table-condensed">
+						<button class="btn width100" id="newIssue" onclick="newIssue()">Create new Issue</button>
+							<table class="table table-condensed">				
 								<tr>
-									<td>New issues: ${countNewIssues}  </td>
-								</tr>							
-								<tr>
-									<td>Not connected issues: ${countNotLinkedIssues} </td>
+									<td>New issues: ${countNotLinkedIssues} </td>
 								</tr>
 							</table>
 						<h5>Read and marked issues:</h5>
-						<select id="issueTable" multiple>
+						<select id="issueTable" class="width100" multiple>
 							<c:forEach items="${issues}" var="issue">
 							<c:if test="${empty issue.attachedCRs}">
-								<c:if test="${issue.marker==''}"><option class="issues" id="issue_${issue.id}" value="${issue.id}" style="font-weight:bold">${issue.caption}</option></c:if>
-								<c:if test="${issue.marker!=''}"><option class="issues" id="issue_${issue.id}" value="${issue.id}" style="background:${issue.marker}">${issue.caption}</option></c:if>
+								<c:if test="${issue.marker==''}"><option class="notMarkedIssues" id="issue_${issue.id}" value="${issue.id}">${issue.caption}</option></c:if>
+								<c:if test="${issue.marker!=''}"><option class="markedIssues" id="issue_${issue.id}"  style="background:${issue.marker}"value="${issue.id}">${issue.caption}</option></c:if>
 								</c:if>
 							</c:forEach>
 						</select>
@@ -84,14 +81,14 @@
 						<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
-						<button class="btn" value="green" id="greenbut" onclick="javascript:addMark(this)">Green</button>
-						<button class="btn" value="yellow" id="yellowbut" onclick="javascript:addMark(this)">Yellow</button>
-						<button class="btn" value="red" id="redbut" onclick="javascript:addMark(this)">Red</button>		
+							<button class="greenbut" value="green" onclick="addMark(this)">Green</button>
+							<button class="yellowbut" value="yellow" onclick="addMark(this)">Yellow</button>
+							<button class="redbut" value="red" onclick="addMark(this)">Red</button>		
 						</ul>
 					</div>
-					<button class="btn" value="" onclick="javascript:addMark(this)">Unmark</button>
-					<a href="javascript:editIssue()" class="btn">Edit Issue</a>
-						</div>
+					<button class="btn" value="" onclick="addMark(this)">Unmark</button>
+					<button onclick="editIssue()" class="btn">Edit Issue</button>
+					</div>
 				</div>
 			</div>
 						
@@ -101,18 +98,25 @@
 </body>
 <script type="text/javascript">
 
-function editCr()
+function newIssue()
 {
-	window.location="/nbt/site/analist/cr/"+document.getElementById("crTable").value;
+	window.location="${api_url}/issue/new";
+}
+function editCr()
+{	
+	var val=document.getElementById("crTable").value;
+	if (val)
+	window.location="${api_url}/cr/"+val;
 }
 function editIssue()
 {
-	window.location="/nbt/site/analist/issue/"+document.getElementById("issueTable").value;
+	var val=document.getElementById("issueTable").value;
+	if (val)
+	window.location="${api_url}/issue/"+val;
 }
 
 function addMark(elem){
 	
-	alert(window.location.href);
 var dat = JSON.stringify({
     idList : $('#issueTable').val(),
 	marker : elem.value
@@ -127,7 +131,7 @@ data:dat
 var issues=$('#issueTable').val(); 
 for(var i=0;i<issues.length;++i)
 {
-	$('#issue_'+issues[i]).css('background',elem.value);	
+	$('#issue_'+issues[i]).css({"background":elem.value});	
 }
 });
 }
@@ -144,7 +148,7 @@ contentType:"application/json",
 dataType:"json",
 url:window.location.href +"/addIssueToCr",
 data:dat
-}).done(function() {alert("Issuses added to CR!");});
+}).done(function(){});
 }
 
 function getInfo()
@@ -164,6 +168,6 @@ $("#redex1").html(response );
 }
 });
 }
-		
+	
 </script>
 </html>

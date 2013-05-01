@@ -38,7 +38,7 @@
 				</div><br>
 				<div class="span5">
 					<h5>Title</h5>
-					<input id="issueCaption" name="issueCaption" type="text" placeholder="Title">		
+					<input id="issueCaption" name="issueCaption" type="text" placeholder="Title" required>		
 					<br>
 					<h5>Description</h5>
 					<textarea rows="7" input id="issueDescription" name="issueDescription" placeholder="Description"></textarea>

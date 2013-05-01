@@ -41,28 +41,26 @@
 					<textarea rows="7" input id="descriptionOfIssue" placeholder="Description" >${crView.description}</textarea>
 					<c:if test="${crView.pathToFile!='img/cr/'}">
 					<h5>Attached</h5>
-					<img id="srcimg" src="<c:url value="/${crView.pathToFile}"/>">		
+					<img class="srcimg" src="<c:url value="/${crView.pathToFile}"/>">		
 					</c:if>	
 				</div>
 				<div class="span5">
 					<h5>Assigned issues</h5>
-					<select multiple id="assIssues"  name="assIssues">
+					<select multiple id="assIssues" class="width100" name="assIssues">
 						<c:forEach items="${crView.issueIdList}" var="cr">
 								<option value="${cr}">${cr}</option>
 						</c:forEach>	 
 					</select>	
 								
-					<button class="btn" type="submit" id="removeissbut">Remove issue</button>
+					<button class="btn width100" type="submit">Remove issue</button>
 					</form>
 					<h5>All issues</h5>
-					<select id="allIssues" multiple>
+					<select id="allIssues" class="width100" multiple>
 							<c:forEach items="${issues}" var="issue">
 								<option value="${issue.id}">${issue.id}</option>
 							</c:forEach>
 						</select>					
-					<div class="btn-group" >
-					  <button class="btn" onclick="addIssuesToCr()" id="addisssbut">Add Issues</button>
-					 </div>
+					  <button class="btn width100" onclick="addIssuesToCr()" >Add Issues</button>
 					</div></div>
 		</div>
 	</div>
@@ -79,14 +77,13 @@ var dat = JSON.stringify({
     idCRList : crId,
 	idIssueList: $('#allIssues').val()
 });
-alert(dat);
 $.ajax({
 type:"POST",
 contentType:"application/json",
 dataType:"json",
-url:"http://localhost:8081/nbt/site/analist/addIssueToCr",
+url:"${api_url}/addIssueToCr",
 data:dat
-}).done(function() {alert("Issuses added to CR!");});
+}).done(function() {});
 }
 
 </script>

@@ -29,30 +29,30 @@
 					<div class="span2">
 						
 						<h5>CRs:</h5>
-						<select id="crTable"  style="width: 100%" multiple>
+						<select id="crTable" class="width100" multiple>
 							<c:forEach items="${crs}" var="cr">
 								<option value="${cr.id}">${cr.caption}</option>
 							</c:forEach>
 						</select>
-						<a href="javascript:crView()" class="btn" id="crviewbut">CR view</a>
+						<button onclick="crView()" class="btn width100">CR view</a>
 						
 					</div>
 					
 					<div class="span4">
 					<h5>Out things:</h5>
-					<textarea id="out" disabled>Out</textarea>
-					<button class="btn" id="addtasktocrbut"  onclick="javascript:addTaskToCr()">Add task to CR </button>
+					<textarea id="out" class="mytext" disabled></textarea>
+					<button class="btn width100" onclick="addTaskToCr()">Add task to CR</button>
 					</div>
 					
 					<div class="span4">
-					<a class="btn " id="newTask" href="${api_url}/newTask">Create new Task</a>	
+					<button class="btn width100" onclick="newTask()">Create new Task</button>	
 						<h5>Tasks:</h5>
-						<select id="taskTable" multiple >
+						<select id="taskTable" class="width100" multiple >
 							<c:forEach items="${tasks}" var="task">
 								<option id="task_${task.id}" value="${task.id}">${task.caption}</option>
 							</c:forEach>
 						</select>
-						<a href="javascript:editTask()" id="edittaskbut"class="btn">Edit task</a>
+						<button onclick="editTask()" class="btn width100">Edit task</button>
 					</div>
 				</div>
 			</div>
@@ -62,14 +62,25 @@
 	<c:import url="/jsp/footer.jsp" />
 </body>
 <script type="text/javascript">
+
+function newTask()
+{
+window.location="${api_url}/newTask";
+}
+
 function crView()
 {
-	window.location="/nbt/site/manager/cr/"+document.getElementById("crTable").value;
+	var val=document.getElementById("crTable").value;
+	if (val)
+	window.location="${api_url}/cr/"+val;
 }
 
 function editTask()
 {
-	window.location="/nbt/site/manager/task/"+document.getElementById("taskTable").value;
+	var val=document.getElementById("taskTable").value;
+	if (val)
+	window.location="${api_url}/task/"+val;
+	
 }
 
 function addTaskToCr()
