@@ -63,7 +63,7 @@ public class UserDao implements CollectionNames {
 		return _mongoTemplate.findAll(UserEntity.class, COLLECTION_USERS);
 	}
 
-	public UserEntity deleteUser(String id) {
+	public UserEntity delete(String id) {
 		return _mongoTemplate.findAndRemove(
 				new Query(Criteria.where("_id").is(id)), UserEntity.class,
 				COLLECTION_USERS);

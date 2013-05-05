@@ -16,7 +16,7 @@
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/style.css"/>" />
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/button.css"/>" />
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/bootstrap.min.css"/>" />
-
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/mytextarea.css"/>" />
 <title>Analyst interface</title>
 </head>
 <body onload="getInfo()">
@@ -28,9 +28,9 @@
 				<div class="span10">
 					<h3>Analyst interface</h3>
 					<div class="span2" >
-						<br> <br> <a class="btn" id="newCr" href="${api_url}/cr/new">Create new CR</a> <br>
+						<br><a class="btn" id="newCr" href="${api_url}/cr/new">Create new CR</a> <br>
 						<h5>CRs:</h5>
-						<select id="crTable" class="width100"  multiple  onchange="getInfo()">
+						<select id="crTable"  style="width: 100%"  multiple  onchange="getInfo()">
 							<c:forEach items="${crs}" var="cr">
 								<option value="${cr.id}">${cr.caption}</option>
 							</c:forEach>
@@ -47,30 +47,31 @@
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane active" id="tab1">
-									<textarea class="mytext" disabled id="redex1"></textarea>
+									
+									<div id="redex1" ></div>
 								</div>
 								<div class="tab-pane" id="tab2">
-									<textarea class="mytext" disabled id="redex2"></textarea>
+									<div id="redex2"></div>
 								</div>
 							</div>
 						</div>
-						
+						<br>
 						<button class="btn width100" onclick="addIssuesToCr()" id="addIssueToCrbut">Add issue to CR</button>
 					</div>
 
 					<div class="span4">
 						<button class="btn width100" id="newIssue" onclick="newIssue()">Create new Issue</button>
-							<table class="table table-condensed">				
+							<table class="table table-condensed">
 								<tr>
-									<td>New issues: ${countNotLinkedIssues} </td>
-								</tr>
+									<td>New issue ${countNotLinkedIssues}  </td>
+								</tr>							
 							</table>
 						<h5>Read and marked issues:</h5>
-						<select id="issueTable" class="width100" multiple>
+						<select id="issueTable" multiple class="width100">
 							<c:forEach items="${issues}" var="issue">
 							<c:if test="${empty issue.attachedCRs}">
-								<c:if test="${issue.marker==''}"><option class="notMarkedIssues" id="issue_${issue.id}" value="${issue.id}">${issue.caption}</option></c:if>
-								<c:if test="${issue.marker!=''}"><option class="markedIssues" id="issue_${issue.id}"  style="background:${issue.marker}"value="${issue.id}">${issue.caption}</option></c:if>
+								<c:if test="${issue.marker==''}"><option class="issues" id="issue_${issue.id}" value="${issue.id}" style="font-weight:bold">${issue.caption}</option></c:if>
+								<c:if test="${issue.marker!=''}"><option class="issues" id="issue_${issue.id}" value="${issue.id}" style="background:${issue.marker}">${issue.caption}</option></c:if>
 								</c:if>
 							</c:forEach>
 						</select>
@@ -88,7 +89,7 @@
 					</div>
 					<button class="btn" value="" onclick="addMark(this)">Unmark</button>
 					<button onclick="editIssue()" class="btn">Edit Issue</button>
-					</div>
+						</div>
 				</div>
 			</div>
 						
@@ -103,16 +104,12 @@ function newIssue()
 	window.location="${api_url}/issue/new";
 }
 function editCr()
-{	
-	var val=document.getElementById("crTable").value;
-	if (val)
-	window.location="${api_url}/cr/"+val;
+{
+	window.location="/nbt/site/analist/cr/"+document.getElementById("crTable").value;
 }
 function editIssue()
 {
-	var val=document.getElementById("issueTable").value;
-	if (val)
-	window.location="${api_url}/issue/"+val;
+	window.location="/nbt/site/analist/issue/"+document.getElementById("issueTable").value;
 }
 
 function addMark(elem){
@@ -131,12 +128,14 @@ data:dat
 var issues=$('#issueTable').val(); 
 for(var i=0;i<issues.length;++i)
 {
-	$('#issue_'+issues[i]).css({"background":elem.value});	
+	$('#issue_'+issues[i]).css('background',elem.value);	
 }
 });
 }
 
 function addIssuesToCr()
+{
+if($('#crTable').val()!=null && $('#issueTable').val()!=null)
 {
 var dat = JSON.stringify({
     idCRList : $('#crTable').val(),
@@ -147,27 +146,57 @@ type:"POST",
 contentType:"application/json",
 dataType:"json",
 url:window.location.href +"/addIssueToCr",
-data:dat
-}).done(function(){});
+data:dat,
+success: function(data){
+getInfo();
+if(getInfo)
+	$("#issueTable").find('option:selected').remove();
+/*alert(data.assignedIssuesCaption);
+$("#redex1").html("CR id:"+data.idCR+"\n"+"CR Caprion"+data.captionCR+"\n"+"CR Desription:"+data.descriptionCR+"\n"+
+"Attached Issues:"+data.assignedIssuesCaption+"\n");
+}
+})/*.done(function() {alert("Issuses added to CR!");});*/
+}
+});
+}
 }
 
 function getInfo()
+{
+if($('#crTable').val()!=null)
 {
 	var dat = JSON.stringify({
     idCRList : $('#crTable').val(),
 	idIssueList: $('#issueTable').val()
 });
+
+
 $.ajax({
 type:"POST",
 contentType:"application/json",
-dataType:"text",
+dataType:"json",
 url:window.location.href +"/getInfo",
 data:dat,
-success: function(response) {
-$("#redex1").html(response );
+success: function(data){
+var p=data.issuesIdAndCaption;
+var hrefString="";
+for (var key in p) {
+  if (p.hasOwnProperty(key)) {
+    hrefString+="Issue: <a href=\" analist/issue/"+key+" \">"+p[key]+"</a><br>";
+  }
 }
+$("#redex1").html("CR id:"+data.idCR+"<br>"+"CR Caption:"+data.captionCR+"<br>"+"CR Description:"+data.descriptionCR+"<br>"+
+"Attached Issues:<br>"+hrefString);
+
+$("#redex2").html("CR id:"+data.idCR+"<br>"+"CR Caption:"+data.captionCR+"<br>"+"CR Description:"+data.descriptionCR+"<br>"+
+"Attached Tasks:<br>"+data.assignedTasksCaption);
+return true;
+},
+error: function() {return false;}
 });
 }
-	
+}
+
+		
 </script>
 </html>

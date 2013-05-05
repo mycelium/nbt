@@ -1,32 +1,37 @@
-.width100{
-width: 100%
+			
+#editCr,#crviewbut
+{
+	width: 76%
 }
-.mytext{
+#redex1, #redex2, #out
+{
 width: 94%; height:99px;resize: none;	
 }
-.notMarkedIssues{
-font-weight:bold
+#addIssueToCrbut,#issueTable,#assIssues,#allIssues,#removeissbut, #addtasktocrbut, #taskTable,#removetaskbut,#addtaskbut{
+width: 100%
 }
-.markedIssues{
-background:${issue.marker}
+#newIssue, #newTask, #edittaskbut{
+width: 90%
 }
-.srcimg{
+#greenbut
+{
+color:black;background:green
+}
+#yellowbut
+{
+color:black;background:yellow
+}
+#redbut
+{
+color:black;background:red
+}
+#srcimg{
 width: 86%
 }
-.greenbut
-{
-background:green;
--webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px
-}
 
-.yellowbut
-{
-background:yellow;
--webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px
+#addisssbut{
+width: 382%
 }
-
-.redbut
-{
-background:red;
--webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px
+#markercol{
+background:
 }

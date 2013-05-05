@@ -56,7 +56,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public String deleteUser(@PathVariable("id") String id) {
         _logger.info("request for delete user with id = " + id);
-        UserEntity deletedUser = _userDao.deleteUser(id);
+        UserEntity deletedUser = _userDao.delete(id);
         _logger.info("Success delete user = " + deletedUser);
         return "redirect:/site/user";
     }

@@ -16,10 +16,11 @@
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/style.css"/>" />
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/bootstrap.min.css"/>" />
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/button.css"/>" />
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/mytextarea.css"/>" />
 
 <title>Manager interface</title>
 </head>
-<body>
+<body onload="getInfo()">
 	<div class="container content">
 		<div class="container-fluid">
 			<div class="row-fluid">
@@ -29,30 +30,30 @@
 					<div class="span2">
 						
 						<h5>CRs:</h5>
-						<select id="crTable" class="width100" multiple>
+						<select id="crTable"  style="width: 100%" multiple onchange="getInfo()">
 							<c:forEach items="${crs}" var="cr">
 								<option value="${cr.id}">${cr.caption}</option>
 							</c:forEach>
 						</select>
-						<button onclick="crView()" class="btn width100">CR view</a>
+						<button onclick="crView()" class="btn width100" id="editCr">Edit CR</button>
 						
 					</div>
 					
 					<div class="span4">
 					<h5>Out things:</h5>
-					<textarea id="out" class="mytext" disabled></textarea>
-					<button class="btn width100" onclick="addTaskToCr()">Add task to CR</button>
+					<div id="redex1" ></div>
+					<button class="btn" id="addtasktocrbut"  onclick="addTasksToCr()">Add task to CR </button>
 					</div>
 					
 					<div class="span4">
-					<button class="btn width100" onclick="newTask()">Create new Task</button>	
+					<a class="btn " id="newTask" href="${api_url}/newTask">Create new Task</a>	
 						<h5>Tasks:</h5>
-						<select id="taskTable" class="width100" multiple >
+						<select id="taskTable" multiple >
 							<c:forEach items="${tasks}" var="task">
 								<option id="task_${task.id}" value="${task.id}">${task.caption}</option>
 							</c:forEach>
 						</select>
-						<button onclick="editTask()" class="btn width100">Edit task</button>
+						<button onclick="editTask()" class="btn width100" id="editCr">Edit Task</button>
 					</div>
 				</div>
 			</div>
@@ -62,28 +63,17 @@
 	<c:import url="/jsp/footer.jsp" />
 </body>
 <script type="text/javascript">
-
-function newTask()
-{
-window.location="${api_url}/newTask";
-}
-
 function crView()
 {
-	var val=document.getElementById("crTable").value;
-	if (val)
-	window.location="${api_url}/cr/"+val;
+	window.location="/nbt/site/manager/cr/"+document.getElementById("crTable").value;
 }
 
 function editTask()
 {
-	var val=document.getElementById("taskTable").value;
-	if (val)
-	window.location="${api_url}/task/"+val;
-	
+	window.location="/nbt/site/manager/task/"+document.getElementById("taskTable").value;
 }
 
-function addTaskToCr()
+/*function addTaskToCr()
 {
 var dat = JSON.stringify({
     idCRList : $('#crTable').val(),
@@ -96,7 +86,71 @@ dataType:"json",
 url:window.location.href +"/addTaskToCr",
 data:dat
 }).done(function() {alert("Tasks added to CR!");});
+}*/
+
+function addTasksToCr()
+{
+if($('#crTable').val()!=null && $('#taskTable').val()!=null)
+{
+var dat = JSON.stringify({
+    idCRList : $('#crTable').val(),
+	idTaskList: $('#taskTable').val()
+});
+$.ajax({
+type:"POST",
+contentType:"application/json",
+dataType:"json",
+url:window.location.href +"/addTasksToCr",
+data:dat,
+success: function(data){
+getInfo();
+if(getInfo)
+	$("#taskTable").find('option:selected').remove();
+/*alert(data.assignedIssuesCaption);
+$("#redex1").html("CR id:"+data.idCR+"\n"+"CR Caprion"+data.captionCR+"\n"+"CR Desription:"+data.descriptionCR+"\n"+
+"Attached Issues:"+data.assignedIssuesCaption+"\n");
 }
+})/*.done(function() {alert("Issuses added to CR!");});*/
+}
+});
+}
+}
+
+function getInfo()
+{
+
+if($('#crTable').val()!=null)
+{
+	var dat = JSON.stringify({
+    idCRList : $('#crTable').val(),
+	idTaskList: $('#taskTable').val()
+});
+
+
+$.ajax({
+type:"POST",
+contentType:"application/json",
+dataType:"json",
+url:window.location.href +"/getInfo",
+data:dat,
+success: function(data){
+var p=data.tasksIdAndCaption;
+var hrefString="";
+for (var key in p) {
+  if (p.hasOwnProperty(key)) {
+    hrefString+="Task: <a href=\" manager/task/"+key+" \">"+p[key]+"</a><br>";
+  }
+}
+//alert(hrefString);
+$("#redex1").html("CR id:"+data.idCR+"<br>"+"CR Caption:"+data.captionCR+"<br>"+"CR Description:"+data.descriptionCR+"<br>"+
+"Attached Tasks:<br>"+hrefString+"<br>");
+return true;
+},
+error: function() {return false;}
+});
+}
+}
+
 		
 </script>
 </html>
