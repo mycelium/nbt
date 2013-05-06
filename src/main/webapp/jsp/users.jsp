@@ -61,7 +61,7 @@
 	</div>
 	<c:import url="/jsp/footer.jsp" />
 	
-	<div id="addUserDialog" style="display:none;" title="New user">
+	<div id="addUserDialog"  title="New user">
 	<form id="addUserForm" action="${api_url}/new" method="POST">
 		<table class="table">
 		<thead>
@@ -81,6 +81,8 @@
 	</form>
 </div>
 <script type="text/javascript">
+document.getElementById('addUserDialog').style.display = 'none';
+
 var xmlhttp = new XMLHttpRequest();
 	function createNew() {
 		$('#addUserDialog').dialog({

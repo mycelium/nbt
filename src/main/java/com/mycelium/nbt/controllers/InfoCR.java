@@ -11,7 +11,6 @@ private String descriptionCR;
 private List<String> assignedIssuesCaption;
 private List<String> assignedTasksCaption;
 private HashMap<String,String> issuesIdAndCaption;
-private HashMap<String,String> tasksIdAndCaption;
 
 public String getIdCR()
 {
@@ -67,14 +66,5 @@ public HashMap<String,String> getIssuesIdAndCaption()
 public void setIssuesIdAndCaption(HashMap<String,String> issuesIdAndCaption)
 {
 	this.issuesIdAndCaption=issuesIdAndCaption;
-}
-public HashMap<String,String> getTasksIdAndCaption()
-{
-	return tasksIdAndCaption;
-}
-
-public void setTasksIdAndCaption(HashMap<String,String> tasksIdAndCaption)
-{
-	this.tasksIdAndCaption=tasksIdAndCaption;
 }
 }

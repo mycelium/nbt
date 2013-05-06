@@ -5,7 +5,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-<c:url value="/site" var="api_url" />
 
 <head>
 <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -39,7 +38,7 @@
 					<input id="markercol"type="text" value="${issueView.marker}" style="background:${issueView.marker}"><br>
 					<c:if test="${issueView.pathToFile!='img/issue/'}">
 						<h5>Attached</h5>
-						<a href="<c:url value="/img/issue/${issueView.pathToFile}"/>">${issueView.pathToFile}</a>
+						<img src="<c:url value="/${issueView.pathToFile}"/>" class="srcimg">
 					</c:if>
 					<br><br>
 				</div>
@@ -50,13 +49,12 @@
 						<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
-						<button class="btn" value="green" id="greenbut" onclick="javascript:addMark(this)">Green</button>
-						<button class="btn" value="yellow" id="yellowbut" onclick="javascript:addMark(this)">Yellow</button>
-						<button class="btn" value="red" id="redbut" onclick="javascript:addMark(this)">Red</button>		
+						<button value="green" class="greenbut" onclick="addMark(this)">Green</button>
+						<button value="yellow" class="yellowbut" onclick="addMark(this)">Yellow</button>
+						<button value="red" class="redbut" onclick="addMark(this)">Red</button>		
 						</ul>
 					</div>
-					<button class="btn" value="" onclick="javascript:addMark(this)">Unmark</button><br><br>
-					<button class="btn">Add to read list</button><br><br>
+					<button class="btn" value="" onclick="addMark(this)">Unmark</button><br><br>
 					</div>
 					
 				</div>

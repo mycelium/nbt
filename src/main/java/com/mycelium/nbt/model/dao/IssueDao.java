@@ -2,21 +2,22 @@ package com.mycelium.nbt.model.dao;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.stereotype.Repository;
-import javax.annotation.PostConstruct;
 import org.springframework.data.mongodb.core.query.Update;
-import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
+
 import com.mycelium.nbt.model.entities.IssueEntity;
-import org.springframework.data.mongodb.core.FindAndModifyOptions;
 
 @Repository
 public class IssueDao implements CollectionNames {
 
-Logger _logger = Logger.getLogger(IssueDao.class);
+	Logger _logger = Logger.getLogger(IssueDao.class);
 	@Autowired
 	private MongoOperations _mongoTemplate;
 
@@ -26,7 +27,7 @@ Logger _logger = Logger.getLogger(IssueDao.class);
 			_mongoTemplate.dropCollection(COLLECTION_ISSUES);
 		}
 		_mongoTemplate.createCollection(COLLECTION_ISSUES);
-		}
+	}
 
 	public void addIssue(IssueEntity issue) {
 		_mongoTemplate.save(issue, COLLECTION_ISSUES);
@@ -36,32 +37,32 @@ Logger _logger = Logger.getLogger(IssueDao.class);
 		return _mongoTemplate.findOne(new Query(Criteria.where("_id").is(id)),
 				IssueEntity.class, COLLECTION_ISSUES);
 	}
-	
+
 
 	public List<IssueEntity> findAll() {
 		return _mongoTemplate.findAll(IssueEntity.class, COLLECTION_ISSUES);
 	}
-	
-	public void updateMarker(String id,String color)
+
+	public void updateMarker(String issueId,String color)
 	{
-	_logger.warn(findOne(id));
-		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(id)),
-		Update.update("_marker", color),IssueEntity.class,COLLECTION_ISSUES);
+		_logger.warn(findOne(issueId));
+		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(issueId)),
+				Update.update("_marker", color),IssueEntity.class,COLLECTION_ISSUES);
 	}
-	
-	public void addCR(String id,String idOfCR)
+
+	public void addCRToIssue(String issueId,String crId)
 	{
 		Update param=new Update();
-		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(id)),
-			param.push("_attachedCRs",idOfCR),IssueEntity.class,COLLECTION_ISSUES);
+		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(issueId)),
+				param.push("_attachedCRs",crId),IssueEntity.class,COLLECTION_ISSUES);
 	}
-	
-		
-	public void delCR(String idOfIssue,String idOfCR) 
+
+
+	public void deleteCRFromIssue(String issueId,String crId) 
 	{
 		Update param=new Update();
-		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(idOfIssue)),
-			param.pull("_attachedCRs",idOfCR),IssueEntity.class,COLLECTION_ISSUES);
+		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(issueId)),
+				param.pull("_attachedCRs",crId),IssueEntity.class,COLLECTION_ISSUES);
 	}
 
 	public List<IssueEntity> findByPriority(String priorityId) {
@@ -77,7 +78,7 @@ Logger _logger = Logger.getLogger(IssueDao.class);
 		// TODO change query for searching by reporter email or login
 	}
 
-	public List<IssueEntity> findByAssignee(String assignee) {
+	public List<IssueEntity> findByAssignee(String assigneeId) {
 		// TODO
 		return null;
 	}
