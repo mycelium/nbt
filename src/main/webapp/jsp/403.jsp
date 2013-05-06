@@ -23,7 +23,7 @@
 				<div class="span10">
 					<h3>403 Error</h3><br>
 					<h5>You don't have enough rights to access this page.</h5><br>
-					<h5>Please,  <button class="btn" onclick="nbt/j_spring_security_logout"> Logout </button>  and login with correct user name.</h5>
+					<h5>Please,  <a class="btn" href="nbt/j_spring_security_logout"> Logout </a>  and login with correct user name.</h5>
 </div>
 		</div>
 	</div>
