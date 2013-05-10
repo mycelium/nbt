@@ -9,4 +9,5 @@ public interface CollectionNames {
 	static final String COLLECTION_STATUSES = "status";
 	static final String COLLECTION_TYPES = "type";
 	static final String COLLECTION_TASKS = "tasks";
+	static final String COLLECTION_MODULE = "module";
 }

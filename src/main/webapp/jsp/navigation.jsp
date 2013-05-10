@@ -7,8 +7,10 @@
 		<li class="nav-header">Menu</li>
 		<li><a href="/nbt">Home</a></li>
 		<li class="divider"/>
+		<li><a href="${api_url}/analist/issue/new">New issue</a></li>
 		<li><a href="${api_url}/analist">Analyst</a></li>
 		<li><a href="${api_url}/manager">Manager</a></li>
+		<li><a href="${api_url}/developer">Developer</a></li>
 		<li><a href="${api_url}/user">Users</a></li>
 		<li class="divider"/>
 		<li><a href="${api_url}/help">Help</a></li>

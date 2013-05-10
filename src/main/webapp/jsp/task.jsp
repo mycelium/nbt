@@ -26,16 +26,18 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<c:import url="/jsp/header.jsp" />
+				<form id="editTask" name="editTask" action="${api_url}/manager/editTask" method="POST">
 				<div class="span10">
 				
 					<h3>Task View</h3>
 				</div><br>
 				<div class="span5">
+				<input id="taskId" name="taskId" type="hidden" value="${taskView.id}">
 					<h5>Title</h5>
-					<input id="taskCaption" name="taskCaption" type="text" placeholder="Title">		
+					<input id="taskCaption" name="taskCaption" type="text" placeholder="Title" value="${taskView.caption}" required>	
 					<br>
 					<h5>Description</h5>
-					<textarea rows="7" input id="taskDescription" name="taskDescription" placeholder="Description"></textarea>
+					<textarea rows="7"  id="taskDescription" name="taskDescription" placeholder="Description"> ${taskView.description}</textarea>
 					<h5>CR</h5>
 					<select id="crId" name="crId" multiple>
 					<c:forEach items="${taskView.attachedCRs}" var="cr">
@@ -51,7 +53,7 @@
 				</div>
 			</div>
 			<div class="rightControls">
-			<input type="submit" class="btn btn-info">
+			<input type="submit" class="btn">
 			</div>
 		</div>
 	</div>

@@ -45,6 +45,13 @@
 					
 				</div>
 				<div class="span5">
+				<h5>Modules</h5>
+					<select id="moduleId" name="moduleId" multiple>
+					<c:forEach items="${modules}" var="module">
+						<option value="${module.id}">${module.caption}</option>
+					</c:forEach>
+					</select>
+					
 					<h5>Date of creation</h5>
 					<input type="text" id="taskDateOfStart" name="taskDateOfStart">			
 				</div>

@@ -105,10 +105,14 @@ function newIssue()
 }
 function editCr()
 {
-	window.location="/nbt/site/analist/cr/"+document.getElementById("crTable").value;
+	var val=document.getElementById("crTable").value;
+	if (val)
+	window.location="${api_url}/cr/"+val;
 }
 function editIssue()
 {
+	var val=document.getElementById("issueTable").value;
+	if (val)
 	window.location="/nbt/site/analist/issue/"+document.getElementById("issueTable").value;
 }
 

@@ -31,36 +31,42 @@
 					<h3>CR view</h3>
 				</div><br>
 				<div class="span5">
-					<form action="${api_url}/delIssueFromCr" method="get">
+					<form action="${api_url}/cr/edit" method="post">
 					<input id="crId" name="crId" type="hidden"  value="${crView.id}">
 					
 					<h5>Title</h5>
-					<input id="title" type="text" placeholder="Title" value="${crView.caption}">
+					<input id="crCaption" name="crCaption" type="text" placeholder="Title" value="${crView.caption}">
 					<br>
 					<h5>Description</h5>
-					<textarea rows="7" input id="descriptionOfIssue" placeholder="Description" >${crView.description}</textarea>
-					<c:if test="${crView.pathToFile!='img/cr/'}">
+					<textarea rows="7"  id="crDescription" name="crDescription"  placeholder="Description" >${crView.description}</textarea>
+					<c:if test="${crView.pathToFile!=''}">
 					<h5>Attached</h5>
-					<img class="srcimg" src="<c:url value="/${crView.pathToFile}"/>">		
+					<a href="<c:url value="/img/cr/${crView.pathToFile}"/>">${crView.pathToFile}</a>
+					<button class="btn btn-info" id="delFile" value="${crView.pathToFile}" onclick="${api_url}/cr/delFile"/>Delete</button>
 					</c:if>	
+					<br><br>
+					<button class="btn " type="submit">Save changes</button>
+					</form>
 				</div>
 				<div class="span5">
 					<h5>Assigned issues</h5>
-					<select multiple id="assIssues" class="width100" name="assIssues">
+					<select multiple id="assIssues"  name="assIssues">
 						<c:forEach items="${crView.issueIdList}" var="cr">
 								<option value="${cr}">${cr}</option>
 						</c:forEach>	 
 					</select>	
 								
-					<button class="btn width100" type="submit">Remove issue</button>
-					</form>
+					<button class="btn" onclick="delIssueFromCr('${api_url}')" id="removeissbut">Remove issue</button>
+					
 					<h5>All issues</h5>
-					<select id="allIssues" class="width100" multiple>
+					<select id="allIssues" multiple>
 							<c:forEach items="${issues}" var="issue">
 								<option value="${issue.id}">${issue.id}</option>
 							</c:forEach>
 						</select>					
-					  <button class="btn width100" onclick="addIssuesToCr()" >Add Issues</button>
+					<div class="btn-group" >
+					  <button class="btn" onclick="addIssuesToCr('${api_url}')" id="addisssbut">Add Issues</button>
+					 </div>
 					</div></div>
 		</div>
 	</div>
@@ -69,9 +75,10 @@
 
 <script type="text/javascript">
 
-function addIssuesToCr()
+function addIssuesToCr(urlValue)
 {
 var crId=[];
+
 crId.push($('#crId').val());
 var dat = JSON.stringify({
     idCRList : crId,
@@ -81,9 +88,32 @@ $.ajax({
 type:"POST",
 contentType:"application/json",
 dataType:"json",
-url:"${api_url}/addIssueToCr",
-data:dat
-}).done(function() {});
+url:urlValue+"/addIssueToCr",
+data:dat,
+success: function(data){
+
+}
+})
+}
+function delIssueFromCr(urlValue)
+{
+var crId=[];
+alert(urlValue);
+crId.push($('#crId').val());
+var dat = JSON.stringify({
+    idCRList : crId,
+	idIssueList: $('#assIssues').val()
+});
+$.ajax({
+type:"POST",
+contentType:"application/json",
+dataType:"json",
+url:urlValue+"/delIssueFromCr",
+data:dat,
+success: function(data){
+$('#assIssues').find('option:selected').remove();
+}
+})
 }
 
 </script>

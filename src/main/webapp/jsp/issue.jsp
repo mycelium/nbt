@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
+<c:url value="/site/analist" var="api_url" />
 
 <head>
 <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -28,19 +29,21 @@
 				<div class="span10">
 					<h3>Issue view</h3>
 				<div class="span6">
+				<form action="${api_url}/issue/edit" method="post">
 					<h4>Issue ${issueView.caption}</h4>		
-					<input type="hidden" id="issId"value="${issueView.id}">
+					<input type="hidden" id="issId" name="issId" value="${issueView.id}">
 					<h5>Title</h5>
-					<input type="text" placeholder="Title" value="${issueView.caption}"><br>
+					<input type="text" id="issueCaption" name="issueCaption" placeholder="Title" value="${issueView.caption}"><br>
 					<h5>Description</h5>
-					<textarea rows="7" input id="descriptionOfIssue" placeholder="Description">${issueView.description}</textarea>
+					<textarea rows="7" input id="issueDescription" name="issueDescription" placeholder="Description">${issueView.description}</textarea>
 					<h5>Marker</h5>
 					<input id="markercol"type="text" value="${issueView.marker}" style="background:${issueView.marker}"><br>
-					<c:if test="${issueView.pathToFile!='img/issue/'}">
+					<c:if test="${issueView.pathToFile!=''}">
 						<h5>Attached</h5>
-						<img src="<c:url value="/${issueView.pathToFile}"/>" class="srcimg">
+						<a href="<c:url value='/img/issue/${issueView.pathToFile}'/>">${issueView.pathToFile}</a>
 					</c:if>
-					<br><br>
+					<br>
+					<button class="btn" type="submit">Save changes</button>
 				</div>
 					<div class="span4">
 					<div class="btn-group">

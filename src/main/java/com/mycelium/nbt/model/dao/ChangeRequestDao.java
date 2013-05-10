@@ -85,5 +85,11 @@ public class ChangeRequestDao implements CollectionNames {
 				param.pullAll("_taskIdList",taskId),ChangeRequestEntity.class,COLLECTION_CRS);
 	}
 
+	public void updateFile(String idOfCR,String fileName)
+	{
+		Update param=new Update();
+		_mongoTemplate.findAndModify(new Query(Criteria.where("_id").is(idOfCR)),
+			param.push("_pathToFile",fileName),ChangeRequestEntity.class,COLLECTION_CRS);
+	}
 
 }
