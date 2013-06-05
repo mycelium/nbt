@@ -22,6 +22,7 @@ public class IssueEntity extends Entity {
 	private String _marker;
 	private String _pathToFile;
 	private List<String> _attachedCRs;
+	private List<String> _captions;
 	
 	public IssueEntity() {
 		_caption = "";
@@ -39,6 +40,7 @@ public class IssueEntity extends Entity {
 		_description = "";
 		_marker="";
 		_attachedCRs=new ArrayList<String>();
+		_captions=new ArrayList<String>();
 	}
 
 	public IssueEntity(String caption, String reporter,
@@ -63,6 +65,7 @@ public class IssueEntity extends Entity {
 		_marker="";
 		_pathToFile=pathToFile;
 		_attachedCRs=new ArrayList<String>();
+		_captions=new ArrayList<String>();
 	}
 
 	@Override
@@ -201,5 +204,13 @@ public class IssueEntity extends Entity {
 
 	public void setAttachedCRs(ArrayList<String> attachedCRs) {
 		_attachedCRs = attachedCRs;
+	}
+
+	public List<String> getCaptions() {
+		return _captions;
+	}
+
+	public void setCaptions(ArrayList<String> captions) {
+		_captions = captions;
 	}
 }

@@ -47,7 +47,9 @@
 					<textarea rows="7" input id="crDescription" name="crDescription" placeholder="Description"></textarea>
 					<h5>Parent CR</h5>
 					<select id="crParentId" name="crParentId">
-						<option>1</option>
+						<c:forEach items="${crs}" var="cr">
+								<option value="${cr.id}">${cr.caption}</option>
+							</c:forEach>
 					</select>
 					<h5>Priority</h5>
 					<select id="crPriority" name="crPriority">

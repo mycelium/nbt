@@ -10,8 +10,12 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import com.mycelium.nbt.model.dao.ChangeRequestDao;
 import com.mycelium.nbt.model.dao.IssueDao;
+import com.mycelium.nbt.model.dao.ModuleDao;
 import com.mycelium.nbt.model.entities.ChangeRequestEntity;
 import com.mycelium.nbt.model.entities.IssueEntity;
+import com.mycelium.nbt.model.entities.ModuleEntity;
+import com.mycelium.nbt.model.entities.TaskEntity;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -47,11 +51,14 @@ public class AnalistController {
 	UserDao _userDao;
 	@Autowired
 	TaskDao _taskDao;
+	@Autowired
+	ModuleDao _moduleDao;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getAnalistPage() {
 		ModelAndView mav = new ModelAndView("analist");
 		mav.addObject("crs", _crDao.findAll());
+		mav.addObject("tasks", _taskDao.findAll());
 		mav.addObject("issues", sortIssues(_issueDao.findAll()));
 		mav.addObject("countNewIssues",
 				getCountNotLinkedIssues(_issueDao.findAll()));
@@ -64,6 +71,7 @@ public class AnalistController {
 	public ModelAndView createNewIssie() {
 		ModelAndView mav = new ModelAndView("newIssue");
 		mav.addObject("users", _userDao.findAll());
+		mav.addObject("crs", _crDao.findAll());
 		return mav;
 	}
 
@@ -72,6 +80,7 @@ public class AnalistController {
 		ModelAndView mav = new ModelAndView("newCr");
 		mav.addObject("users", _userDao.findAll());
 		mav.addObject("issues", _issueDao.findAll());
+		mav.addObject("crs", _crDao.findAll());
 		return mav;
 	}
 
@@ -87,6 +96,7 @@ public class AnalistController {
 		ModelAndView mav = new ModelAndView("cr");
 		mav.addObject("crView", _crDao.findOne(changeRequestId));
 		mav.addObject("issues", _issueDao.findAll());
+	//	mav.addObject("issuesCaption", _issueDao.findByAttachedCRs(changeRequestId).getCaption());
 		return mav;
 	}
 	@RequestMapping(value = "/cr/edit", method = RequestMethod.POST)
@@ -120,6 +130,14 @@ public class AnalistController {
 		return "redirect:/site/analist";
 		
 	}
+	
+	@RequestMapping(value = "/task/{id}",method = RequestMethod.GET)
+	public ModelAndView getTask(@PathVariable("id") String taskId) {
+		ModelAndView mav=new ModelAndView("task");
+		mav.addObject("taskView", _taskDao.findOne(taskId));			
+		return mav;
+	}
+	
 	// CR
 	@RequestMapping(value = "/cr/add", method = RequestMethod.POST)
 	public String addChangeRequest(
@@ -167,9 +185,6 @@ public class AnalistController {
 					_logger.info("Saving file: " + aFile.getOriginalFilename());
 
 					if (!aFile.getOriginalFilename().equals("")) {
-						// aFile.transferTo(new
-						// File(request.getRealPath("/img/cr/")+
-						// aFile.getOriginalFilename()));
 						Properties prop = new Properties();
 						try {
 							prop.load(new FileInputStream("config.properties"));
@@ -205,21 +220,10 @@ public class AnalistController {
 			if (request.getParameterValues("issueWatchers") != null)
 				watchers = Arrays.asList(request
 						.getParameterValues("issueWatchers"));
-			/*
-			 * List<String> subtasks=new ArrayList<String>();
-			 * if(request.getParameterValues("issueSubtasks")!=null)
-			 * subtasks=Arrays
-			 * .asList(request.getParameterValues("issueSubtasks"));
-			 * List<String> components=new ArrayList<String>();
-			 * if(request.getParameterValues("issueComponents")!=null)
-			 * components=Arrays
-			 * .asList(request.getParameterValues("issueComponents"));
-			 */
 			String typeIssue = request.getParameter("issueType");
 			String statusIssue = request.getParameter("issueStatus");
 			String priorityIssue = request.getParameter("issuePriority");
 			Date creationDate;
-			// Date modificationDate;
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
 			if (request.getParameter("issueCreationDate") != null
 					&& !request.getParameter("issueCreationDate").equals(""))
@@ -245,11 +249,6 @@ public class AnalistController {
 							+ aFile.getOriginalFilename());
 
 					if (!aFile.getOriginalFilename().equals("")) {
-						/*
-						 * aFile.transferTo(new File(request
-						 * .getRealPath("/img/issue/") +
-						 * aFile.getOriginalFilename()));
-						 */
 						Properties prop = new Properties();
 						try {
 							prop.load(new FileInputStream("config.properties"));
@@ -271,19 +270,18 @@ public class AnalistController {
 	}
 
 	@RequestMapping(value = "/mark", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public String markIssue(@RequestBody MarkIssues markIssues) {
+	public void markIssue(@RequestBody MarkIssues markIssues) {
 
 		String[] idOfIssues = markIssues.getIdList();
 		String mymarker = markIssues.getMarker();
 		for (String idOfIssue : idOfIssues) {
 			_issueDao.updateMarker(_issueDao.findOne(idOfIssue).getId(),
 					mymarker);
-		}
-		return "redirect:/site/analist";
+		}	
 	}
 
 	@RequestMapping(value = "/addIssueToCr", method = RequestMethod.POST, headers = { "content-type=application/json" })
-	public/* @ResponseBody InfoCR */void addIssuesToCR(
+	public void addIssuesToCR(
 			@RequestBody IssuesAndCRs iac) {
 
 		String[] idOfCRs = iac.getIdCRList();
@@ -302,14 +300,7 @@ public class AnalistController {
 	}
 
 	@RequestMapping(value = "/delIssueFromCr", method = RequestMethod.POST)
-	public void delIssueFromCR(/*HttpServletRequest request*/
-			@RequestBody IssuesAndCRs iac) {
-		/*String idOfCR = request.getParameter("crId");
-		if (request.getParameterValues("assIssues") != null) {
-			_crDao.delIssue(idOfCR, request.getParameterValues("assIssues"));
-			for (String idOfIssue : request.getParameterValues("assIssues"))
-				_issueDao.delCR(idOfIssue, idOfCR);
-		}*/
+	public void delIssueFromCR(@RequestBody IssuesAndCRs iac) {
 		String[] idOfCR = iac.getIdCRList();
 		String[] idOfIssues = iac.getIdIssueList();
 		if ( idOfIssues!= null) {
@@ -342,15 +333,6 @@ public class AnalistController {
 	public @ResponseBody
 	InfoCR getInfo(@RequestBody IssuesAndCRs iac) {
 		String[] idOfCRs = iac.getIdCRList();
-		/*
-		 * String result = ""; if (CRsId != null) { for (String CRsIssue :
-		 * _crDao.findOne(CRsId[0]).getIssueIdList()) result += "ID:" + CRsIssue
-		 * + ";\nCaption: " + _issueDao.findOne(CRsIssue).getCaption() + "\n";
-		 * 
-		 * return "CR caption: " + _crDao.findOne(CRsId[0]).getCaption() +
-		 * "\nCR description : " + _crDao.findOne(CRsId[0]).getDescription() +
-		 * "\nAssigned Issues: \n" + result; } else return "In";
-		 */
 		InfoCR infoCR = new InfoCR();
 		infoCR.setIdCR(_crDao.findOne(idOfCRs[0]).getId());
 		infoCR.setCaptionCR(_crDao.findOne(idOfCRs[0]).getCaption());
@@ -372,6 +354,47 @@ public class AnalistController {
 		return infoCR;
 
 	}
+	@RequestMapping(value = "/issue/{id}/baseLine", method = RequestMethod.GET)
+	public @ResponseBody String getBaseLine(@PathVariable("id") String  issueId) {
+		//ModelAndView mav = new ModelAndView("baseLine");
+		//List<ChangeRequestEntity> linkedCRsToIssue=new ArrayList<ChangeRequestEntity>();
+		//List<ChangeRequestEntity> linkedTasksToIssue=new ArrayList<ChangeRequestEntity>();
+		String xml_str="";
+		xml_str+="<root>";
+		xml_str+="<item id=\""+issueId+"\">";
+		xml_str+="<content><name>"+_issueDao.findOne(issueId).getCaption()+"</name></content>";
+		if(!_issueDao.findOne(issueId).getAttachedCRs().isEmpty()&&
+				_issueDao.findOne(issueId).getAttachedCRs()!=null)
+		for(String crId:_issueDao.findOne(issueId).getAttachedCRs())
+		{
+			xml_str+="<item id=\""+crId+"\">";
+			xml_str+="<content><name>"+_crDao.findOne(crId).getCaption()+"</name></content>";
+			if(!_crDao.findOne(crId).getTaskIdList().isEmpty()&&
+					_crDao.findOne(crId).getTaskIdList()!=null)
+			for(String taskId:_crDao.findOne(crId).getTaskIdList())
+			{
+				xml_str+="<item id=\""+taskId+"\">";
+				xml_str+="<content><name>"+_taskDao.findOne(taskId).getCaption()+"</name></content>";
+				if(!_taskDao.findOne(taskId).getAttachedModules().isEmpty()&&
+						_taskDao.findOne(taskId).getAttachedModules()!=null)
+				for(String moduleId:_taskDao.findOne(taskId).getAttachedModules())
+				{
+					xml_str+="<item id=\""+moduleId+"\">";
+					xml_str+="<content><name>"+_moduleDao.findOne(moduleId).getCaption()+"</name></content>";
+					xml_str+="</item>";
+				}
+				xml_str+="</item>";
+			}
+			xml_str+="</item>";
+				
+
+		}
+		xml_str+="</item>";
+		xml_str+="</root>";
+		_logger.warn(xml_str);
+
+		return xml_str;
+	}
 
 	public ArrayList<IssueEntity> sortIssues(List<IssueEntity> issues) {
 		ArrayList<IssueEntity> sortIssues = new ArrayList<IssueEntity>(issues);
@@ -381,18 +404,6 @@ public class AnalistController {
 				return g1.getMarker().compareTo(g2.getMarker());
 			}
 		});
-		/*
-		 * ArrayList<HashMap<Integer, IssueEntity>> tmpIssues = new
-		 * ArrayList<HashMap<Integer, IssueEntity>>(); for (int i = 0; i <
-		 * sortIssues.size(); ++i) { if
-		 * (!sortIssues.get(i).getMarker().equals("")) { HashMap<Integer,
-		 * IssueEntity> hashMap = new HashMap<Integer, IssueEntity>();
-		 * hashMap.put(i, sortIssues.get(i)); tmpIssues.add(hashMap); } else if
-		 * (!tmpIssues.isEmpty() && sortIssues.get(i).getMarker().equals("")) {
-		 * sortIssues.set( (Integer) tmpIssues.get(0).keySet().toArray()[0],
-		 * sortIssues.get(i)); sortIssues.set( i, tmpIssues.get(0).get(
-		 * tmpIssues.get(0).keySet().toArray()[0])); tmpIssues.remove(0); } }
-		 */
 		return sortIssues;
 	}
 

@@ -13,6 +13,7 @@
 <script type="text/javascript" src="<c:url value="/js/jquery-ui.js"/>"></script>
 <script type="text/javascript"	src="<c:url value="/js/bootstrap.min.js"/>"></script>
 <script type="text/javascript"	src="<c:url value="/js/bootstrap-datepicker.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/js/jquery.jstree.js"/>"></script>
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/button.css"/>" />
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/jquery-ui.css"/>" />
 <link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/style.css"/>" />
@@ -37,13 +38,14 @@
 					<h5>Description</h5>
 					<textarea rows="7" input id="issueDescription" name="issueDescription" placeholder="Description">${issueView.description}</textarea>
 					<h5>Marker</h5>
-					<input id="markercol"type="text" value="${issueView.marker}" style="background:${issueView.marker}"><br>
+					<input id="markercol"type="text" style="background:${issueView.marker}"><br>
 					<c:if test="${issueView.pathToFile!=''}">
 						<h5>Attached</h5>
 						<a href="<c:url value='/img/issue/${issueView.pathToFile}'/>">${issueView.pathToFile}</a>
 					</c:if>
 					<br>
 					<button class="btn" type="submit">Save changes</button>
+				</form>
 				</div>
 					<div class="span4">
 					<div class="btn-group">
@@ -58,6 +60,8 @@
 						</ul>
 					</div>
 					<button class="btn" value="" onclick="addMark(this)">Unmark</button><br><br>
+					BaseLine:
+					<div id="tree"></div>
 					</div>
 					
 				</div>
@@ -67,6 +71,36 @@
 	<c:import url="/jsp/footer.jsp" />
 </body>
 <script type="text/javascript">
+	/*$(function () {
+
+	    $("#tree").jstree({
+	        "xml_data" : {
+	            "ajax" : {
+	                "url" : window.location+"/getBaseLine"
+					
+	            }},
+
+	            "xsl" : "nest"
+	        },
+	        "plugins" : [ "themes", "xml_data" ]
+	    });
+	});*/
+$(function(){
+$.ajax({
+type:"GET",
+url: window.location.href+"/baseLine",
+success:function(data){
+$("#tree").jstree({
+ "plugins" : [ "themes", "xml_data" ],
+"xml_data" : {
+"data":""+data,
+"xsl":"nest"
+}
+
+});
+}
+});
+});
 function addMark(elem){
 var crId=[];
 crId.push($('#issId').val());

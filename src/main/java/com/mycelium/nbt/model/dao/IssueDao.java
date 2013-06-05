@@ -78,9 +78,10 @@ public class IssueDao implements CollectionNames {
 		// TODO change query for searching by reporter email or login
 	}
 
-	public List<IssueEntity> findByAssignee(String assigneeId) {
-		// TODO
-		return null;
+	public List<IssueEntity> findByAttachedCRs(List<String> attachedCRs) {
+		return _mongoTemplate.find(
+				new Query(Criteria.where("attachedCRs").is(attachedCRs)),
+				IssueEntity.class, COLLECTION_ISSUES);
 	}
 
 	// Edit combination by all parameters

@@ -30,6 +30,7 @@
 <http auto-config="true" access-decision-manager-ref="accessDecisionManager" >
     <intercept-url pattern="/site/manager*" access="Manager" />
 	<intercept-url pattern="/site/analist*" access="Admin" />
+	<intercept-url pattern="/site/developer*" access="Developer" />
 	        <form-login/>
         <logout />
 </http>

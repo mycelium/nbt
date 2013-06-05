@@ -56,6 +56,13 @@ public class ChangeRequestDao implements CollectionNames {
 				new Query(Criteria.where("_parentId").is(parentId)),
 				ChangeRequestEntity.class, COLLECTION_CRS);
 	}
+	
+	
+	public List<ChangeRequestEntity> findByIssueIdList(String issueIdList) {
+		return _mongoTemplate.find(
+				new Query(Criteria.where("_issueIdList").is(issueIdList)),
+				ChangeRequestEntity.class, COLLECTION_CRS);
+	}
 
 	public void addIssueToCR(String crId,String issueId)
 	{

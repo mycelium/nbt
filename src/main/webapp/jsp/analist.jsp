@@ -184,16 +184,19 @@ data:dat,
 success: function(data){
 var p=data.issuesIdAndCaption;
 var hrefString="";
+var hrefString1="";
 for (var key in p) {
   if (p.hasOwnProperty(key)) {
     hrefString+="Issue: <a href=\" analist/issue/"+key+" \">"+p[key]+"</a><br>";
   }
 }
+hrefString1+="Task: <a href=\" analist/task/"+data.assignedTasksCaption+" \">"+data.assignedTasksCaption+"</a><br>";
+
 $("#redex1").html("CR id:"+data.idCR+"<br>"+"CR Caption:"+data.captionCR+"<br>"+"CR Description:"+data.descriptionCR+"<br>"+
 "Attached Issues:<br>"+hrefString);
 
 $("#redex2").html("CR id:"+data.idCR+"<br>"+"CR Caption:"+data.captionCR+"<br>"+"CR Description:"+data.descriptionCR+"<br>"+
-"Attached Tasks:<br>"+data.assignedTasksCaption);
+"Attached Tasks:<br>"+hrefString1);
 return true;
 },
 error: function() {return false;}

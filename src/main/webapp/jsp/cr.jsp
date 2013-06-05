@@ -55,13 +55,20 @@
 								<option value="${cr}">${cr}</option>
 						</c:forEach>	 
 					</select>	
-								
+						
+					<h5>Assigned issues2</h5>
+					<select multiple id="asssIssues"  name="asssIssues">
+						<c:forEach items="${issuesCaption}" var="cr">
+								<option value="${cr}">${cr}</option>
+						</c:forEach>	 
+					</select>	
+					
 					<button class="btn" onclick="delIssueFromCr('${api_url}')" id="removeissbut">Remove issue</button>
 					
 					<h5>All issues</h5>
 					<select id="allIssues" multiple>
 							<c:forEach items="${issues}" var="issue">
-								<option value="${issue.id}">${issue.id}</option>
+								<option value="${issue.id}">${issue.caption}</option>
 							</c:forEach>
 						</select>					
 					<div class="btn-group" >

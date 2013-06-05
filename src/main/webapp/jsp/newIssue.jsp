@@ -33,17 +33,23 @@
 			<div class="row-fluid">
 				<c:import url="/jsp/header.jsp" />
 				<div class="span10">
-				<form id="newIssue" name="newIssue" action="${api_url}/analist/issue/add" method="POST" enctype="multipart/form-data">
+				<form id="newIssue" name="newIssue" action="${api_url}/main/newIssue/add" method="POST" enctype="multipart/form-data">
 					<h3>Create New Issue</h3>
 				</div><br>
 				<div class="span5">
+
 					<h5>Title</h5>
 					<input id="issueCaption" name="issueCaption" type="text" placeholder="Title" required>		
 					<br>
 					<h5>Description</h5>
 					<textarea rows="7" input id="issueDescription" name="issueDescription" placeholder="Description"></textarea>
 					<h5>Reporter</h5>
-					<input id="issueReporter" name="issueReporter" type="text" placeholder="Reporter">		
+					<select id="issueReporter" name="issueReporter">
+					<c:forEach items="${users}" var="user">
+						<option>${user.login}</option>
+					</c:forEach>
+					</select>
+					
 					<br>
 					<h5>Assignees</h5>
 					<select id="issueAssignees" name="issueAssignees" multiple>

@@ -6,16 +6,12 @@
 <html>
 <head>
 <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<link type="text/css" rel="stylesheet" media="all"
-	href="<c:url value="/css/style.css"/>" />
-<link type="text/css" rel="stylesheet" media="screen"
-	href="<c:url value="/css/bootstrap.min.css"/>">
-<!-- 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-	 -->
+<link type="text/css" rel="stylesheet" media="all"	href="<c:url value="/css/style.css"/>" />
+<link type="text/css" rel="stylesheet" media="screen"	href="<c:url value="/css/bootstrap.min.css"/>">
+<link type="text/css" rel="stylesheet" media="screen"	href="<c:url value="/css/button.css"/>">
+
 <script type="text/javascript" src="<c:url value="js/jquery.js"/>"></script>
-<script type="text/javascript"
-	src="<c:url value="js/bootstrap.min.js"/>"></script>
+<script type="text/javascript"	src="<c:url value="js/bootstrap.min.js"/>"></script>
 
 <title>NBT</title>
 </head>
@@ -26,12 +22,18 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<c:import url="/jsp/header.jsp" />
-				<div class="span8">
-					<h3>Welcome</h3>
-					
-					</div>
+				<div class="span10">
+					<h3>Welcome to the NBT project</h3>
+					<p>The NBT system is an open source project created to make the Project Management work easier and more understandable.</p>
+					<p>Our main goals are:</p>
+					<ul>
+						<li>To provide the user with the simple way to trace back and forward each of the business requirements;</li>
+						<li>To create an opportunity to work remotely with the change requests and tasks base;</li>
+						<li>To create the fast and easy way to manage the project.</li>
+					</ul>				
+				</div>
 				
-				
+				</div>
 			</div>
 		</div>
 	</div>

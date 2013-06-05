@@ -5,9 +5,9 @@
 <div class="span2">
 	<ul class="nav nav-list">
 		<li class="nav-header">Menu</li>
-		<li><a href="/nbt">Home</a></li>
+		<li><a href="/nbt/site/main">Home</a></li>
 		<li class="divider"/>
-		<li><a href="${api_url}/analist/issue/new">New issue</a></li>
+		<li><a href="${api_url}/main/newIssue">New issue</a></li>
 		<li><a href="${api_url}/analist">Analyst</a></li>
 		<li><a href="${api_url}/manager">Manager</a></li>
 		<li><a href="${api_url}/developer">Developer</a></li>

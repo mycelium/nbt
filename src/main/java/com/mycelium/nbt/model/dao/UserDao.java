@@ -42,6 +42,9 @@ public class UserDao implements CollectionNames {
 		user = new UserEntity("admin", RoleType.Admin.getId(),
 				"admin@mycelium.com", "admin", "adminiev", "1234");
 		addUser(user);
+		user = new UserEntity("gosha", RoleType.Developer.getId(),
+				"gosha@mycelium.com", "Gosha", "Mikhailov", "1234");
+		addUser(user);
 	}
 
 	public void addUser(UserEntity user) {
